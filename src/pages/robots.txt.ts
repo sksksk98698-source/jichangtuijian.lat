@@ -3,14 +3,28 @@ import { siteUrl } from '../config/site';
 export const prerender = true;
 
 function buildRobotsTxt() {
-  const sitemapUrl = new URL('sitemap-index.xml', siteUrl).toString();
+  const sitemapIndexUrl = new URL('sitemap-index.xml', siteUrl).toString();
+  const sitemapXmlUrl = new URL('sitemap.xml', siteUrl).toString();
 
   return [
     'User-agent: *',
     'Allow: /',
     'Disallow: /search-index.json',
     '',
-    `Sitemap: ${sitemapUrl}`,
+    'User-agent: Googlebot',
+    'Allow: /',
+    '',
+    'User-agent: bingbot',
+    'Allow: /',
+    '',
+    'User-agent: Baiduspider',
+    'Allow: /',
+    '',
+    'User-agent: yisouspider',
+    'Allow: /',
+    '',
+    `Sitemap: ${sitemapIndexUrl}`,
+    `Sitemap: ${sitemapXmlUrl}`,
     '',
   ].join('\n');
 }

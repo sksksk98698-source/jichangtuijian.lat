@@ -55,15 +55,14 @@ export interface ProfileConfig {
 
 export const profileConfig: ProfileConfig = {
   avatar: defaultAvatar,
-  name: 'Your Name',
-  title: 'Your Role / Focus',
-  bio: 'Write a short self-introduction here. This content is used in About and article schema.',
-  location: 'Your City',
-  email: 'you@example.com',
-  githubProfileUrl: 'https://example.com',
+  name: '网络评测团队',
+  title: '网络性能分析 & 节点测评工程师',
+  bio: '深入探索全球高速网络连接技术，持续输出客观中立的网络服务评测、真实延迟与吞吐量测速报告，以及全平台网络客户端配置指南。',
+  location: 'Global / Singapore',
+  email: 'contact@jichangtuijian.lat',
+  githubProfileUrl: '',
   socials: [
-    { key: 'github', label: 'GitHub', url: 'https://example.com' },
-    { key: 'x', label: 'X', url: 'https://example.com' },
-    { key: 'website', label: 'Website', url: 'https://example.com' },
+    { key: 'website', label: '本站首页', url: '/' },
+    { key: 'email', label: '邮件联系', url: 'mailto:contact@jichangtuijian.lat' },
   ],
 };

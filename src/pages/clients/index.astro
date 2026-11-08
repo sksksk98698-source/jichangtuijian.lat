@@ -1,0 +1,449 @@
+---
+import PageShell from '../../layouts/PageShell.astro';
+import HeroHeader from '../../components/HeroHeader.astro';
+import ContentCard from '../../components/ContentCard.astro';
+import defaultBackground from '../../assets/blog-placeholder-1.webp';
+
+const title = '2026 全平台机场代理客户端大全与配置指南 (Windows/Mac/iOS/Android/Linux)';
+const description = '系统汇总 2026 年主流第三方机场客户端：Clash Verge Rev、v2rayN、Shadowrocket (小火箭)、FlClash、Stash、Sing-box 等官方下载通道、核心特点及订阅导入图文教程。';
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  name: title,
+  description: description,
+  url: 'https://jichangtuijian.lat/clients/',
+  breadcrumb: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: '首页', item: 'https://jichangtuijian.lat/' },
+      { '@type': 'ListItem', position: 2, name: '全平台客户端下载与配置指南', item: 'https://jichangtuijian.lat/clients/' },
+    ],
+  },
+};
+
+const clientsData = {
+  windows: [
+    { name: 'Clash Verge Rev', kernel: 'Mihomo (Clash Meta)', feat: '规则分流、订阅管理、TUN 模式，2026 电脑端主流首选', url: 'https://github.com/clash-verge-rev/clash-verge-rev/releases', isHot: true },
+    { name: 'v2rayN', kernel: 'Xray / sing-box', feat: '老牌经典多协议工具，支持 VLESS、Trojan、Hysteria2 复杂配置', url: 'https://github.com/2dust/v2rayN/releases', isHot: true },
+    { name: 'FlClash', kernel: 'Mihomo', feat: '基于 Flutter 开发的高颜值跨平台客户端，内存占用轻巧', url: 'https://github.com/chen08209/FlClash/releases', isHot: false },
+    { name: 'Hiddify', kernel: 'Sing-box', feat: '多协议全自动节点选择、深色高质感界面，支持新协议自适应', url: 'https://github.com/hiddify/hiddify-next/releases', isHot: false },
+    { name: 'Karing', kernel: 'Sing-box', feat: '跨平台、多订阅合并管理与精细分流，面向新手友好设计', url: 'https://github.com/KaringX/karing/releases', isHot: false }
+  ],
+  android: [
+    { name: 'v2rayNG', kernel: 'Xray', feat: '安卓平台最普及、最稳定的代理软件，支持一键剪贴板导入与多订阅管理', url: 'https://github.com/2dust/v2rayNG/releases', isHot: true },
+    { name: 'FlClash', kernel: 'Mihomo', feat: '与桌面端同源设计，Material Design 风格，分流规则配置极其直观', url: 'https://github.com/chen08209/FlClash/releases', isHot: true },
+    { name: 'Hiddify Android', kernel: 'Sing-box', feat: '开箱即用，支持一键智能优选最低延迟节点，适合新手', url: 'https://github.com/hiddify/hiddify-next/releases', isHot: false },
+    { name: 'sing-box for Android (SFA)', kernel: 'Sing-box 原生', feat: '官方纯净版内核，性能强悍功耗极低，支持现代标准协议', url: 'https://github.com/SagerNet/sing-box/releases', isHot: false }
+  ],
+  ios: [
+    { name: 'Shadowrocket (小火箭)', platform: 'iOS / iPadOS', feat: '国内最知名、使用门槛最低的规则分流代理神器，支持全协议及节点自动测速', url: 'https://apps.apple.com/app/shadowrocket/id932747118', isHot: true, note: '需非国区 Apple ID（美区约 $2.99）' },
+    { name: 'Stash', platform: 'iOS / iPadOS / Apple TV', feat: 'Clash 核心规则在 iOS 平台的顶级实现，支持策略组、按需连接与重写脚本', url: 'https://apps.apple.com/app/stash-rule-based-proxy/id1596063349', isHot: true, note: '需非国区 Apple ID' },
+    { name: 'Quantumult X (圈 X)', platform: 'iOS / iPadOS', feat: '极客向网络调试利器，支持精准分流规则、MitM 证书与自定义 JavaScript 脚本', url: 'https://apps.apple.com/app/quantumult-x/id1453926894', isHot: false, note: '需非国区 Apple ID' },
+    { name: 'Surge 5', platform: 'iOS / macOS', feat: 'iOS 平台上性能最高、功能最完善的网络调试与高级代理工具', url: 'https://nssurge.com/', isHot: false, note: '专业订阅制应用' }
+  ],
+  macos: [
+    { name: 'Clash Verge Rev (Mac)', kernel: 'Mihomo (Apple Silicon & Intel)', feat: '完美支持 macOS M 系列芯片，支持增强模式与全系统接管', url: 'https://github.com/clash-verge-rev/clash-verge-rev/releases', isHot: true },
+    { name: 'FlClash for macOS', kernel: 'Mihomo', feat: '轻量优雅，原生跟随 macOS 深色模式与菜单栏快速选点', url: 'https://github.com/chen08209/FlClash/releases', isHot: false },
+    { name: 'Surge for Mac', kernel: 'Surge', feat: 'Mac 平台终极网络接管工具，网速稳定，支持网关代理模式', url: 'https://nssurge.com/', isHot: false }
+  ]
+};
+---
+
+<PageShell
+  title={title}
+  description={description}
+  schema={webPageSchema}
+  transparentHeader={true}
+  pageId="blog-list"
+>
+  <HeroHeader
+    text="全平台网络代理客户端大全"
+    subtitle="Windows、macOS、iOS、Android 全平台工具下载指南与订阅导入保姆级教程"
+    backgroundImage={defaultBackground.src}
+  />
+
+  <ContentCard>
+    <div class="clients-container">
+      <!-- 快速导航锚点 -->
+      <div class="platform-nav">
+        <a href="#windows" class="nav-chip">💻 Windows 客户端</a>
+        <a href="#android" class="nav-chip">📱 Android 客户端</a>
+        <a href="#ios" class="nav-chip">🍎 iOS (iPhone/iPad)</a>
+        <a href="#macos" class="nav-chip">🖥️ macOS 客户端</a>
+        <a href="#tutorial" class="nav-chip highlight">📖 订阅导入教程</a>
+      </div>
+
+      <!-- Windows 区域 -->
+      <section id="windows" class="platform-section">
+        <div class="section-title-wrap">
+          <h2 class="platform-heading">💻 Windows 电脑端推荐客户端</h2>
+          <p class="platform-sub">核心搜索词：Clash Verge Rev 下载、v2rayN 最新版、Windows 机场客户端、TUN 模式配置</p>
+        </div>
+        <div class="client-grid">
+          {clientsData.windows.map((c) => (
+            <div class="client-card">
+              <div class="card-top">
+                <h3 class="client-name">{c.name}</h3>
+                {c.isHot && <span class="hot-badge">强烈推荐</span>}
+              </div>
+              <div class="kernel-pill">内核: {c.kernel}</div>
+              <p class="client-desc">{c.feat}</p>
+              <div class="card-footer">
+                <a href={c.url} target="_blank" rel="noreferrer" class="btn-download">前往 GitHub 下载 &rarr;</a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Android 区域 -->
+      <section id="android" class="platform-section">
+        <div class="section-title-wrap">
+          <h2 class="platform-heading">📱 Android 安卓手机推荐客户端</h2>
+          <p class="platform-sub">核心搜索词：v2rayNG 安卓版、FlClash APK 下载、手机机场代理软件、Sing-box 安卓</p>
+        </div>
+        <div class="client-grid">
+          {clientsData.android.map((c) => (
+            <div class="client-card">
+              <div class="card-top">
+                <h3 class="client-name">{c.name}</h3>
+                {c.isHot && <span class="hot-badge">强烈推荐</span>}
+              </div>
+              <div class="kernel-pill">内核: {c.kernel}</div>
+              <p class="client-desc">{c.feat}</p>
+              <div class="card-footer">
+                <a href={c.url} target="_blank" rel="noreferrer" class="btn-download">官方安装包下载 &rarr;</a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- iOS 区域 -->
+      <section id="ios" class="platform-section">
+        <div class="section-title-wrap">
+          <h2 class="platform-heading">🍎 iPhone / iPad 苹果客户端</h2>
+          <p class="platform-sub">核心搜索词：Shadowrocket 小火箭下载、美区 Apple ID、Stash 订阅导入、iOS 翻墙软件</p>
+        </div>
+        <div class="client-grid">
+          {clientsData.ios.map((c) => (
+            <div class="client-card">
+              <div class="card-top">
+                <h3 class="client-name">{c.name}</h3>
+                {c.isHot && <span class="hot-badge">主流首选</span>}
+              </div>
+              {c.note && <div class="note-pill">⚠️ {c.note}</div>}
+              <p class="client-desc">{c.feat}</p>
+              <div class="card-footer">
+                <a href={c.url} target="_blank" rel="noreferrer" class="btn-download">前往 App Store 查看 &rarr;</a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- macOS 区域 -->
+      <section id="macos" class="platform-section">
+        <div class="section-title-wrap">
+          <h2 class="platform-heading">🖥️ macOS 苹果电脑客户端</h2>
+          <p class="platform-sub">提供 Apple Silicon (M1/M2/M3/M4) 与 Intel 架构独立安装包，运行功耗低</p>
+        </div>
+        <div class="client-grid">
+          {clientsData.macos.map((c) => (
+            <div class="client-card">
+              <div class="card-top">
+                <h3 class="client-name">{c.name}</h3>
+                {c.isHot && <span class="hot-badge">推荐</span>}
+              </div>
+              <div class="kernel-pill">架构: {c.kernel}</div>
+              <p class="client-desc">{c.feat}</p>
+              <div class="card-footer">
+                <a href={c.url} target="_blank" rel="noreferrer" class="btn-download">前往下载 &rarr;</a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- 快速上手订阅教程 -->
+      <section id="tutorial" class="tutorial-section">
+        <h2 class="platform-heading">📖 新手保姆级：机场订阅导入教程（以 Clash & 小火箭为例）</h2>
+
+        <div class="step-card">
+          <div class="step-badge">步骤 1</div>
+          <div class="step-content">
+            <h3>获取机场订阅链接</h3>
+            <p>
+              在您购买的机场后台（如 <a href="/blog/guangsucloud-review/">光速云</a> 或 <a href="/airports/">机场品牌库</a> 中的任意品牌），找到「便捷导入」或「复制订阅链接（Clash / 通用 / V2Ray）」。
+            </p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-badge">步骤 2</div>
+          <div class="step-content">
+            <h3>导入到电脑或手机客户端</h3>
+            <p>
+              - <strong>电脑端 (Clash Verge Rev)</strong>：进入「订阅」-> 粘贴订阅 URL -> 点击「导入」-> 在「配置」中选择刚才导入的文件。<br/>
+              - <strong>手机端 (Shadowrocket 小火箭)</strong>：点击右上角 <code>+</code> -> 类型选择 <code>Subscribe</code> -> 粘贴 URL 保存，节点将自动下载。
+            </p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-badge">步骤 3</div>
+          <div class="step-content">
+            <h3>开启系统代理与分流模式</h3>
+            <p>
+              将分流模式设置为「规则模式（Rule）」，这样国内网站（微信、百度、淘宝）直接走本地宽带，而 Google、YouTube、ChatGPT 自动走专线加速通道，既省流量又保证高速！
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA 横幅 -->
+      <div class="bottom-cta-banner">
+        <h3>还没有适合您的优质高速专线机场？</h3>
+        <p>探索我们基于真实延迟与晚高峰 4K 测速筛选出的 42 家精选机场品牌，找到性价比与稳定性兼备的服务商。</p>
+        <a href="/airports/" class="cta-link-btn">立即前往 42 家机场品牌库 &rarr;</a>
+      </div>
+    </div>
+  </ContentCard>
+</PageShell>
+
+<style>
+  .clients-container {
+    padding: 1.5em 0;
+  }
+
+  .platform-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7em;
+    margin-bottom: 2.8em;
+  }
+
+  .nav-chip {
+    padding: 0.55em 1.1em;
+    border-radius: 999px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-size: 0.92em;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  .nav-chip:hover {
+    color: var(--color-text);
+    border-color: var(--color-border-strong);
+    background: var(--color-surface-elevated);
+  }
+
+  .nav-chip.highlight {
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    color: var(--accent);
+    border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+    font-weight: 600;
+  }
+
+  .platform-section {
+    margin-bottom: 3.5em;
+  }
+
+  .section-title-wrap {
+    margin-bottom: 1.4em;
+  }
+
+  .platform-heading {
+    margin: 0 0 0.35em 0;
+    font-size: 1.5em;
+    font-weight: 700;
+  }
+
+  .platform-sub {
+    margin: 0;
+    font-size: 0.9em;
+    color: var(--color-text-muted);
+  }
+
+  .client-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.4em;
+  }
+
+  .client-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 1.5em;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .client-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.6em;
+  }
+
+  .client-name {
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .hot-badge {
+    font-size: 0.72em;
+    padding: 0.2em 0.6em;
+    border-radius: 999px;
+    background: #ef4444;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .kernel-pill,
+  .note-pill {
+    display: inline-block;
+    align-self: flex-start;
+    font-size: 0.8em;
+    padding: 0.18em 0.55em;
+    border-radius: 6px;
+    background: var(--color-bg);
+    color: var(--color-text-muted);
+    margin-bottom: 0.9em;
+  }
+
+  .note-pill {
+    background: #fef3c7;
+    color: #92400e;
+    font-weight: 500;
+  }
+
+  .client-desc {
+    font-size: 0.92em;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    margin: 0 0 1.3em 0;
+  }
+
+  .card-footer {
+    margin-top: auto;
+  }
+
+  .btn-download {
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 0.65em 1em;
+    border-radius: 9px;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    text-decoration: none;
+    font-size: 0.88em;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+
+  .btn-download:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .tutorial-section {
+    margin: 4em 0 2em 0;
+    padding: 2.2em;
+    background: var(--color-bg);
+    border-radius: 18px;
+    border: 1px solid var(--color-border);
+  }
+
+  .step-card {
+    display: flex;
+    gap: 1.4em;
+    margin-top: 1.5em;
+    background: var(--color-surface);
+    padding: 1.4em;
+    border-radius: 12px;
+    border: 1px solid var(--color-border-subtle);
+  }
+
+  .step-badge {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 800;
+    font-size: 0.88em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .step-content h3 {
+    margin: 0 0 0.4em 0;
+    font-size: 1.1em;
+  }
+
+  .step-content p {
+    margin: 0;
+    font-size: 0.92em;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+  }
+
+  .bottom-cta-banner {
+    margin-top: 4em;
+    text-align: center;
+    padding: 2.5em 1.5em;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 8%, var(--color-surface)), var(--color-surface));
+    border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+    border-radius: 18px;
+  }
+
+  .bottom-cta-banner h3 {
+    margin-top: 0;
+    font-size: 1.4em;
+  }
+
+  .bottom-cta-banner p {
+    color: var(--color-text-secondary);
+    max-width: 650px;
+    margin: 0 auto 1.5em auto;
+    line-height: 1.6;
+  }
+
+  .cta-link-btn {
+    display: inline-block;
+    padding: 0.8em 2.2em;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    box-shadow: 0 4px 14px rgba(var(--accent-rgb), 0.35);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+
+  .cta-link-btn:hover {
+    background: var(--accent-dark);
+    transform: scale(1.03);
+  }
+</style>

@@ -1,0 +1,19 @@
+{
+  "totalHtmlPages": 373,
+  "canonicalIssues": [],
+  "outboundLinksWithoutNofollow": [],
+  "emptyAnchorTags": [],
+  "internalDeadLinks": [],
+  "thinContentPages": [],
+  "schemaErrors": [],
+  "titleIssues": {
+    "missing": [],
+    "duplicates": {}
+  },
+  "descriptionIssues": {
+    "missing": [],
+    "duplicates": {}
+  },
+  "trackingCodeAudit": [],
+  "infrastructureLeaks": []
+}

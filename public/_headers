@@ -4,6 +4,18 @@
 /
   Cache-Control: public, max-age=300, must-revalidate
 
+/airports
+  Cache-Control: public, max-age=300, must-revalidate
+
+/airports/*
+  Cache-Control: public, max-age=300, must-revalidate
+
+/clients
+  Cache-Control: public, max-age=300, must-revalidate
+
+/clients/*
+  Cache-Control: public, max-age=300, must-revalidate
+
 /about
   Cache-Control: public, max-age=300, must-revalidate
 

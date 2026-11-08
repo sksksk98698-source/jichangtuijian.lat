@@ -37,12 +37,16 @@ const visibleTags = typeof tagLimit === 'number' ? tags.slice(0, tagLimit) : tag
 	<div class={itemClass}>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
+			width="15"
+			height="15"
 			viewBox="0 0 24 24"
 			fill="none"
 			stroke="currentColor"
 			stroke-width="2"
 			stroke-linecap="round"
 			stroke-linejoin="round"
+			aria-hidden="true"
+			style="width: 15px; height: 15px; max-width: 15px; max-height: 15px; flex-shrink: 0;"
 		>
 			<rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
 			<line x1="16" y1="2" x2="16" y2="6"></line>
@@ -55,12 +59,16 @@ const visibleTags = typeof tagLimit === 'number' ? tags.slice(0, tagLimit) : tag
 		<div class={itemClass}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
+				width="15"
+				height="15"
 				viewBox="0 0 24 24"
 				fill="none"
 				stroke="currentColor"
 				stroke-width="2"
 				stroke-linecap="round"
 				stroke-linejoin="round"
+				aria-hidden="true"
+				style="width: 15px; height: 15px; max-width: 15px; max-height: 15px; flex-shrink: 0;"
 			>
 				<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
 				<path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
@@ -74,12 +82,16 @@ const visibleTags = typeof tagLimit === 'number' ? tags.slice(0, tagLimit) : tag
 				<a href={getTagPath(tag)} class={tagLinkClass}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
+						width="15"
+						height="15"
 						viewBox="0 0 24 24"
 						fill="none"
 						stroke="currentColor"
 						stroke-width="2"
 						stroke-linecap="round"
 						stroke-linejoin="round"
+						aria-hidden="true"
+						style="width: 15px; height: 15px; max-width: 15px; max-height: 15px; flex-shrink: 0;"
 					>
 						<path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
 						<line x1="7" y1="7" x2="7.01" y2="7"></line>
@@ -90,3 +102,19 @@ const visibleTags = typeof tagLimit === 'number' ? tags.slice(0, tagLimit) : tag
 		</div>
 	)}
 </div>
+
+<style>
+	:global(.post-meta) svg,
+	.post-meta svg,
+	svg {
+		width: 15px !important;
+		height: 15px !important;
+		max-width: 15px !important;
+		max-height: 15px !important;
+		min-width: 15px;
+		min-height: 15px;
+		flex-shrink: 0;
+		display: inline-block;
+		vertical-align: middle;
+	}
+</style>

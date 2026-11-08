@@ -1,0 +1,125 @@
+---
+import PageShell from '../layouts/PageShell.astro';
+import { siteTitle } from '../config/site';
+---
+
+<PageShell
+  title={`404 - 页面未找到 | ${siteTitle}`}
+  description="抱歉，您访问的页面不存在或已被移除。请返回首页或浏览优质机场评测与节点推荐。"
+  noindex={true}
+  transparentHeader={true}
+  useMainWrapper={true}
+>
+  <div class="error-wrapper">
+    <div class="error-content">
+      <div class="error-badge">HTTP 404</div>
+      <h1 class="error-heading">页面未找到</h1>
+      <p class="error-message">
+        抱歉，您所访问的页面不存在、已被移动或链接输入有误。
+      </p>
+      <div class="nav-suggestions">
+        <p class="suggestions-title">您可以尝试前往以下核心板块：</p>
+        <div class="links-grid">
+          <a href="/" class="nav-btn primary">返回网站首页</a>
+          <a href="/airports/" class="nav-btn">42 家机场评测库</a>
+          <a href="/reviews/" class="nav-btn">万字选购横评</a>
+          <a href="/trials/" class="nav-btn">免费试用指南</a>
+          <a href="/warnings/" class="nav-btn">跑路避坑预警</a>
+          <a href="/faq/" class="nav-btn">新手常见问题</a>
+          <a href="/free-nodes/" class="nav-btn">免费节点避坑</a>
+          <a href="/clients/" class="nav-btn">客户端配置教程</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .error-wrapper {
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1.5rem;
+    }
+    .error-content {
+      max-width: 680px;
+      width: 100%;
+      text-align: center;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 20px;
+      padding: 3rem 2rem;
+      box-shadow: 0 10px 30px rgba(var(--shadow-color), 0.05);
+    }
+    .error-badge {
+      display: inline-block;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #ef4444;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      border-radius: 999px;
+      padding: 0.3rem 1rem;
+      margin-bottom: 1rem;
+      letter-spacing: 0.05em;
+    }
+    .error-heading {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--color-text);
+      margin: 0 0 1rem 0;
+    }
+    .error-message {
+      font-size: 1.05rem;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+    .nav-suggestions {
+      border-top: 1px solid var(--color-border);
+      padding-top: 1.75rem;
+      text-align: left;
+    }
+    .suggestions-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.75rem;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-text);
+      background: var(--color-surface-elevated, #f8fafc);
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+    .nav-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .nav-btn.primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    .nav-btn.primary:hover {
+      opacity: 0.92;
+      color: #fff;
+    }
+  </style>
+</PageShell>

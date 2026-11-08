@@ -1,11 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
-
-/*
-  The CSS in this style tag is based off of Bear Blog's default CSS.
-  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
-  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
- */
-
 :root {
 	--header-height: 64px;
 	--anchor-gap: 16px;
@@ -32,9 +24,9 @@
 		border-color var(--theme-color-transition-duration) var(--theme-color-transition-ease),
 		box-shadow var(--theme-color-transition-duration) var(--theme-color-transition-ease);
 
-	/* ═══════════════════════════════════════
-	   Semantic Color Tokens — Light Mode
-	   ═══════════════════════════════════════ */
+	/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+	   Semantic Color Tokens 鈥?Light Mode
+	   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
 	/* Surfaces */
 	--color-bg: #f4f5f6;
@@ -109,10 +101,10 @@
 	--color-hobby-gradient: linear-gradient(135deg, #f8f9fa, #e9ecef);
 }
 
-/* ═══════════════════════════════════════
-   Dark Mode — Premium Dark Palette
-   舒适、质感、高级感
-   ═══════════════════════════════════════ */
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   Dark Mode 鈥?Premium Dark Palette
+   鑸掗€傘€佽川鎰熴€侀珮绾ф劅
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 [data-theme="dark"] {
 	--accent: #7b8cff;
 	--accent-dark: #5c6ae6;
@@ -202,7 +194,7 @@
 	}
 }
 
-/* Theme transition for smooth switching — only while toggling */
+/* Theme transition for smooth switching 鈥?only while toggling */
 html.theme-transitioning,
 html.theme-transitioning body,
 html.theme-transitioning *,
@@ -508,7 +500,7 @@ input {
 }
 
 /* ==========================================================================
-   Markdown 表格 - 现代优雅设计 (Modern Table UI)
+   Markdown 琛ㄦ牸 - 鐜颁唬浼橀泤璁捐 (Modern Table UI)
    ========================================================================== */
 .prose .table-shell {
 	position: relative;
@@ -549,7 +541,7 @@ input {
 	border: 0;
 }
 
-/* 表头样式 */
+/* 琛ㄥご鏍峰紡 */
 .prose table thead {
 	background-color: var(--color-surface-input);
 	border-bottom: 2px solid var(--color-border-strong);
@@ -567,7 +559,7 @@ input {
 	border-bottom: 2px solid var(--color-border-strong);
 }
 
-/* 适配 Markdown 渲染生成的 align 属性对齐方式 */
+/* 閫傞厤 Markdown 娓叉煋鐢熸垚鐨?align 灞炴€у榻愭柟寮?*/
 .prose table th[align="center"],
 .prose table td[align="center"] {
 	text-align: center;
@@ -581,7 +573,7 @@ input {
 	text-align: left;
 }
 
-/* 数据行样式 */
+/* 鏁版嵁琛屾牱寮?*/
 .prose table tbody tr {
 	border-bottom: 1px solid var(--color-border-subtle);
 	background-color: var(--color-surface);
@@ -592,17 +584,17 @@ input {
 	border-bottom: none;
 }
 
-/* 斑马纹交替背景 */
+/* 鏂戦┈绾逛氦鏇胯儗鏅?*/
 .prose table tbody tr:nth-child(even) {
 	background-color: var(--color-surface-hover);
 }
 
-/* 数据行悬停高亮 */
+/* 鏁版嵁琛屾偓鍋滈珮浜?*/
 .prose table tbody tr:hover {
 	background-color: var(--color-surface-elevated);
 }
 
-/* 单元格与间距 */
+/* 鍗曞厓鏍间笌闂磋窛 */
 .prose table td {
 	padding: 12px 16px;
 	vertical-align: middle;
@@ -610,7 +602,7 @@ input {
 	word-break: normal;
 }
 
-/* 首尾列单元格增加额外内边距以对齐视觉边界 */
+/* 棣栧熬鍒楀崟鍏冩牸澧炲姞棰濆鍐呰竟璺濅互瀵归綈瑙嗚杈圭晫 */
 .prose table th:first-child,
 .prose table td:first-child {
 	padding-left: 20px;
@@ -621,7 +613,7 @@ input {
 	padding-right: 20px;
 }
 
-/* 表格内包含的行内代码（code）处理 */
+/* 琛ㄦ牸鍐呭寘鍚殑琛屽唴浠ｇ爜锛坈ode锛夊鐞?*/
 .prose table td code {
 	font-size: 0.85em;
 	padding: 2px 6px;
@@ -634,7 +626,7 @@ input {
 	}
 
 	.prose .table-shell--wide::before {
-		content: "左右滑动查看完整表格";
+		content: "宸﹀彸婊戝姩鏌ョ湅瀹屾暣琛ㄦ牸";
 		display: block;
 		margin: 0 0 0.45rem;
 		color: var(--color-text-muted);
@@ -697,7 +689,7 @@ img {
 	border-radius: 8px;
 }
 
-/* 行内代码 */
+/* 琛屽唴浠ｇ爜 */
 code {
 	padding: 2px 8px;
 	background: var(--color-code-inline-bg);
@@ -708,10 +700,10 @@ code {
 	border: 1px solid var(--color-code-inline-border);
 }
 
-/* ═══════════════════════════════════════════════════════════
-   代码块 - 极简现代设计（白色主题）
-   设计理念：干净、专注、优雅的阅读体验
-   ═══════════════════════════════════════════════════════════ */
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+   浠ｇ爜鍧?- 鏋佺畝鐜颁唬璁捐锛堢櫧鑹蹭富棰橈級
+   璁捐鐞嗗康锛氬共鍑€銆佷笓娉ㄣ€佷紭闆呯殑闃呰浣撻獙
+   鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?*/
 
 .code-block-wrapper {
 	position: relative;
@@ -729,7 +721,7 @@ code {
 	box-shadow: var(--color-code-block-shadow-hover);
 }
 
-/* 浮动工具栏 - 右上角 */
+/* 娴姩宸ュ叿鏍?- 鍙充笂瑙?*/
 .code-toolbar {
 	position: absolute;
 	top: 12px;
@@ -737,7 +729,7 @@ code {
 	z-index: 10;
 }
 
-/* 语言标签 - 默认显示 */
+/* 璇█鏍囩 - 榛樿鏄剧ず */
 .code-lang {
 	display: inline-flex;
 	align-items: center;
@@ -755,7 +747,7 @@ code {
 	transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-/* 复制按钮 - 默认隐藏 */
+/* 澶嶅埗鎸夐挳 - 榛樿闅愯棌 */
 .code-copy-btn {
 	position: absolute;
 	top: 0;
@@ -783,7 +775,7 @@ code {
 	pointer-events: none;
 }
 
-/* Hover 状态：隐藏语言，显示复制按钮 */
+/* Hover 鐘舵€侊細闅愯棌璇█锛屾樉绀哄鍒舵寜閽?*/
 .code-block-wrapper:hover .code-lang {
 	opacity: 0;
 	transform: scale(0.9);
@@ -820,13 +812,13 @@ code {
 	transform: scale(0.95);
 }
 
-/* 代码块主体容器 */
+/* 浠ｇ爜鍧椾富浣撳鍣?*/
 .code-body {
 	display: flex;
 	overflow-x: auto;
 }
 
-/* 行号区域 - 优雅设计 */
+/* 琛屽彿鍖哄煙 - 浼橀泤璁捐 */
 .line-numbers {
 	flex-shrink: 0;
 	padding: 1.25rem 0;
@@ -849,7 +841,7 @@ code {
 	transition: color 0.15s ease;
 }
 
-/* 代码块主体 - 白色主题 */
+/* 浠ｇ爜鍧椾富浣?- 鐧借壊涓婚 */
 pre {
 	margin: 0;
 	padding: 1.25rem 1em 1.25rem 0.5em;
@@ -871,7 +863,7 @@ pre>code {
 	tab-size: 4;
 }
 
-/* Shiki/Astro 代码高亮适配 */
+/* Shiki/Astro 浠ｇ爜楂樹寒閫傞厤 */
 pre.astro-code {
 	background: transparent !important;
 	padding: 1.25em 1.5em;
@@ -882,7 +874,7 @@ pre.astro-code code {
 	background: transparent;
 }
 
-/* 强制应用暗色主题高亮 */
+/* 寮哄埗搴旂敤鏆楄壊涓婚楂樹寒 */
 [data-theme="dark"] .astro-code,
 [data-theme="dark"] .astro-code span {
 	color: var(--shiki-dark) !important;
@@ -1030,7 +1022,7 @@ hr {
 		max-width: none;
 	}
 
-	/* 横向图保留滚动空间；竖向图随正文宽度收窄，避免在手机上被 680px 下限放大。 */
+	/* 妯悜鍥句繚鐣欐粴鍔ㄧ┖闂达紱绔栧悜鍥鹃殢姝ｆ枃瀹藉害鏀剁獎锛岄伩鍏嶅湪鎵嬫満涓婅 680px 涓嬮檺鏀惧ぇ銆?*/
 	.mermaid-diagram--portrait .mermaid-diagram__canvas {
 		justify-content: center;
 	}
@@ -1135,8 +1127,8 @@ hr {
 	white-space: nowrap;
 }
 
-/* KaTeX 数学公式样式 */
-/* 显示渲染后的公式，隐藏原始 MathML */
+/* KaTeX 鏁板鍏紡鏍峰紡 */
+/* 鏄剧ず娓叉煋鍚庣殑鍏紡锛岄殣钘忓師濮?MathML */
 .katex-html {
 	display: unset !important;
 }
@@ -1145,7 +1137,7 @@ hr {
 	display: none !important;
 }
 
-/* 确保块级公式可以水平滚动 */
+/* 纭繚鍧楃骇鍏紡鍙互姘村钩婊氬姩 */
 .katex-display {
 	overflow-x: auto;
 	overflow-y: hidden;
@@ -1194,4 +1186,28 @@ hr {
 /* Ensure Lightbox image is always original */
 .lightbox-image {
 	filter: none !important;
+}
+
+/* DEFENSIVE_SVG_PROTECTION */
+svg:not(.mermaid-diagram__canvas svg):not([width]) {
+  width: 1rem !important;
+  height: 1rem !important;
+  max-width: 1rem !important;
+  max-height: 1rem !important;
+  flex-shrink: 0;
+}
+.tag-meta-item svg,
+.post-meta-item svg,
+.meta-chip svg,
+.hero-meta svg,
+.feather,
+.pdf-export-button svg,
+.meta-item svg {
+  width: 14px !important;
+  height: 14px !important;
+  max-width: 14px !important;
+  max-height: 14px !important;
+  flex-shrink: 0 !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
 }

@@ -11,6 +11,7 @@ import {
 	siteTitle,
 	siteTitleSuffix,
 	siteUrl,
+	verificationConfig,
 } from '../config';
 
 type SchemaObject = Record<string, unknown>;
@@ -77,6 +78,7 @@ const fullTitle =
 <meta charset="utf-8" transition:persist />
 <meta name="viewport" content="width=device-width,initial-scale=1" transition:persist />
 <link rel="icon" href={faviconIco} sizes="any" transition:persist />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" transition:persist />
 <link rel="sitemap" href="/sitemap-index.xml" transition:persist />
 <link
 	rel="alternate"
@@ -87,7 +89,7 @@ const fullTitle =
 />
 <meta name="generator" content={Astro.generator} transition:persist />
 
-<!-- Theme initialization — prevents flash of wrong theme -->
+<!-- Theme initialization 鈥?prevents flash of wrong theme -->
 <script is:inline transition:persist>
 (function() {
   function getTheme() {
@@ -95,9 +97,9 @@ const fullTitle =
     if (stored) return stored;
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
-  // 首次加载立即应用
+  // 棣栨鍔犺浇绔嬪嵆搴旂敤
   document.documentElement.setAttribute('data-theme', getTheme());
-  // View Transitions: 在 DOM 交换前将主题写入新文档，彻底消除闪烁
+  // View Transitions: 鍦?DOM 浜ゆ崲鍓嶅皢涓婚鍐欏叆鏂版枃妗ｏ紝褰诲簳娑堥櫎闂儊
   document.addEventListener('astro:before-swap', (ev) => {
     ev.newDocument.documentElement.setAttribute('data-theme', getTheme());
   });
@@ -106,6 +108,12 @@ const fullTitle =
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
+
+<!-- Search Engine Site Verifications (Google, Bing, Baidu, Shenma) -->
+{verificationConfig?.google && <meta name="google-site-verification" content={verificationConfig.google} />}
+{verificationConfig?.bing && <meta name="msvalidate.01" content={verificationConfig.bing} />}
+{verificationConfig?.baidu && <meta name="baidu-site-verification" content={verificationConfig.baidu} />}
+{verificationConfig?.shenma && <meta name="shenma-site-verification" content={verificationConfig.shenma} />}
 
 <!-- Primary Meta Tags -->
 <title>{fullTitle}</title>
@@ -146,19 +154,19 @@ const fullTitle =
 
 <style is:global>
   /* ============================================
-   * Material Design 3 — Core Easing Curves
+   * Material Design 3 鈥?Core Easing Curves
    * 
    * 1. Emphasized Decelerate: cubic-bezier(0.05, 0.7, 0.1, 1.0)
-   *    → For entering/appearing elements (快速启动，缓慢着陆)
+   *    鈫?For entering/appearing elements (蹇€熷惎鍔紝缂撴參鐫€闄?
    *
    * 2. Emphasized Accelerate: cubic-bezier(0.3, 0.0, 0.8, 0.15)
-   *    → For exiting/disappearing elements (慢速启动，快速离场)
+   *    鈫?For exiting/disappearing elements (鎱㈤€熷惎鍔紝蹇€熺鍦?
    *
    * 3. Emphasized (Standard): cubic-bezier(0.2, 0.0, 0.0, 1.0)
-   *    → For shared-axis / morphing transitions (柔和的全程过渡)
+   *    鈫?For shared-axis / morphing transitions (鏌斿拰鐨勫叏绋嬭繃娓?
    * ============================================ */
 
-  /* 页面退出动画 — Emphasized Accelerate: 缓慢拾起，迅速消失 */
+  /* 椤甸潰閫€鍑哄姩鐢?鈥?Emphasized Accelerate: 缂撴參鎷捐捣锛岃繀閫熸秷澶?*/
   @keyframes md3SlideOut {
     from {
       opacity: 1;
@@ -174,7 +182,7 @@ const fullTitle =
     }
   }
   
-  /* 页面进入动画 — Emphasized Decelerate: 迅速到达，优雅着陆 */
+  /* 椤甸潰杩涘叆鍔ㄧ敾 鈥?Emphasized Decelerate: 杩呴€熷埌杈撅紝浼橀泤鐫€闄?*/
   @keyframes md3SlideIn {
     from {
       opacity: 0;
@@ -186,7 +194,7 @@ const fullTitle =
     }
   }
 
-  /* 交叉淡入 — 用于 Hero 等共享元素 */
+  /* 浜ゅ弶娣″叆 鈥?鐢ㄤ簬 Hero 绛夊叡浜厓绱?*/
   @keyframes md3FadeIn {
     from { opacity: 0; }
     to   { opacity: 1; }
@@ -196,7 +204,7 @@ const fullTitle =
     to   { opacity: 0; }
   }
   
-  /* ---- 主要内容区域过渡 ---- */
+  /* ---- 涓昏鍐呭鍖哄煙杩囨浮 ---- */
   ::view-transition-old(page-content) {
     animation: md3SlideOut 0.25s cubic-bezier(0.3, 0.0, 0.8, 0.15) forwards;
   }
@@ -205,7 +213,7 @@ const fullTitle =
     animation: md3SlideIn 0.4s cubic-bezier(0.05, 0.7, 0.1, 1.0) forwards;
   }
 
-  /* Header 保持不动，不参与过渡动画 */
+  /* Header 淇濇寔涓嶅姩锛屼笉鍙備笌杩囨浮鍔ㄧ敾 */
   ::view-transition-group(header) {
     animation: none;
     z-index: 100;
@@ -215,7 +223,7 @@ const fullTitle =
     animation: none;
   }
 
-  /* SearchModal 保持不动 */
+  /* SearchModal 淇濇寔涓嶅姩 */
   ::view-transition-group(search-modal) {
     animation: none;
   }
@@ -224,7 +232,7 @@ const fullTitle =
     animation: none;
   }
 
-  /* ---- Hero 区域过渡 — Emphasized Standard ---- */
+  /* ---- Hero 鍖哄煙杩囨浮 鈥?Emphasized Standard ---- */
   ::view-transition-group(hero) {
     animation-duration: 0.5s;
     animation-timing-function: cubic-bezier(0.2, 0.0, 0.0, 1.0);
@@ -242,7 +250,7 @@ const fullTitle =
     width: 100%;
   }
 
-  /* ---- 内容区域组过渡 — Emphasized Standard ---- */
+  /* ---- 鍐呭鍖哄煙缁勮繃娓?鈥?Emphasized Standard ---- */
   ::view-transition-group(page-content) {
     animation-duration: 0.5s;
     animation-timing-function: cubic-bezier(0.2, 0.0, 0.0, 1.0);

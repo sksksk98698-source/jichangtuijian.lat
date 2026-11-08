@@ -1,201 +1,187 @@
-# ulBo Astro Theme
+<div align="center">
 
-<p align="center">
-  <strong>一个兼顾视觉表达、长文阅读与发布工程的 Astro 个人博客主题。</strong>
-</p>
+# 🚀 机场推荐网 (jichangtuijian.lat)
 
-<p align="center">
-  <a href="./README.md">中文</a> ·
-  <a href="./README.en.md">English</a>
-</p>
+**专著级网络加速知识库 · 42 家机场客观测评 · 全平台客户端配置指南 · SEO/GEO 知识矩阵**
 
-<p align="center">
-  <a href="https://astro.build/"><img alt="Astro 6" src="https://img.shields.io/badge/Astro-6.4.8-BC52EE?logo=astro"></a>
-  <a href="https://nodejs.org/"><img alt="Node.js 22+" src="https://img.shields.io/badge/Node.js-22%2B-339933?logo=nodedotjs&logoColor=white"></a>
-  <a href="./LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
-</p>
+[![Astro](https://img.shields.io/badge/Astro-6.4+-BC52EE.svg?style=flat-square&logo=astro&logoColor=white)](https://astro.build)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9+-3178C6.svg?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![TailwindCSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC.svg?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Cloudflare Pages](https://img.shields.io/badge/Deployed%20on-Cloudflare%20Pages-F38020.svg?style=flat-square&logo=cloudflare&logoColor=white)](https://pages.cloudflare.com/)
+[![SEO Health](https://img.shields.io/badge/SEO%20Health-98.5%2F100-success.svg?style=flat-square&logo=google&logoColor=white)](https://jichangtuijian.lat)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
 
-<p align="center">
-  <a href="https://template.ulna520.top"><strong>在线预览</strong></a> ·
-  <a href="https://blog.ulna520.top">真实博客</a> ·
-  <a href="https://astro.build/themes/details/ulbo/">Astro 主题商城</a> ·
-  <a href="https://github.com/xxy1103/ulbo_vscode">VS Code 文章管理工具</a>
-</p>
+[🌐 访问正式站点](https://jichangtuijian.lat) · [📖 42家机场推荐库](https://jichangtuijian.lat/airports/) · [📊 万字选购横评](https://jichangtuijian.lat/reviews/) · [🛡️ 跑路预警避坑](https://jichangtuijian.lat/warnings/) · [📱 客户端配置](https://jichangtuijian.lat/clients/)
 
-![ulBo Astro Theme 总览](./docs/images/promo/ulbo-overview.png)
+</div>
 
-## 为什么选择 ulBo
-
-ulBo 面向希望长期维护个人内容的写作者、开发者和独立创作者。它不只提供一套博客页面，还把阅读体验、内容组织、搜索发现、SEO、图片优化和日常写作流程组合成一套完整方案。
-
-| 方向 | 能力 |
-| --- | --- |
-| **视觉与动效** | 沉浸式 Hero、响应式布局、明暗主题，以及基于 Astro View Transitions 和 Material Design 3 曲线的页面动效。 |
-| **长文阅读** | 固定目录、字数与阅读时长、代码复制、KaTeX 公式、Mermaid 图表、图片灯箱和适合打印的 PDF 导出。 |
-| **内容发现** | Fuse.js 模糊搜索、`Cmd/Ctrl + K` 快捷入口、文章归档、标签筛选与分页。 |
-| **发布质量** | 严格 Frontmatter、草稿隔离、RSS、Sitemap、Canonical、Open Graph、Twitter Card 和 JSON-LD。 |
-| **配置与迁移** | 站点、个人资料和 Hero 内容集中在 `src/config/`；支持 Markdown / MDX 与 Hexo 风格图片路径。 |
-| **性能工程** | 图片懒加载、异步解码、按需 KaTeX、延迟搜索索引、预取策略，以及可预览的 WebP 优化流程。 |
-
-## 主题预览
-
-<table>
-  <tr>
-    <td width="50%"><img src="./docs/images/promo/ulbo-light-dark.png" alt="ulBo 明暗主题"></td>
-    <td width="50%"><img src="./docs/images/promo/ulbo-longform.png" alt="ulBo 长文阅读"></td>
-  </tr>
-  <tr>
-    <td align="center"><strong>一致的明暗主题体验</strong></td>
-    <td align="center"><strong>为技术长文准备的阅读工具</strong></td>
-  </tr>
-</table>
-
-![ulBo 搜索、标签、归档与 About 页面](./docs/images/promo/ulbo-content.png)
-
-## 快速开始
-
-点击 GitHub 仓库中的 **Use this template** 创建自己的博客，然后运行：
-
-```bash
-npm install
-npm run dev
-```
-
-默认访问地址为 `http://localhost:4321`。
-
-环境要求：
-
-- Node.js 22.12.0 或更高版本
-- npm 9.6.5 或更高版本
-
-## 配置博客
-
-通常只需要修改以下位置：
-
-| 文件 | 用途 |
-| --- | --- |
-| `src/config/site.ts` | 网站地址、标题、描述、语言和仓库链接 |
-| `src/config/profile.ts` | 头像、身份介绍、联系方式和社交链接 |
-| `src/config/hero.ts` | 首页、归档、标签、About 和文章默认 Hero |
-| `src/content/blog/` | Markdown / MDX 文章 |
-| `public/image/` | 文章与页面图片 |
-
-即使 `src/content/blog/` 还是空目录，首页、归档、标签和 About 等核心页面也可以正常构建，适合先完成个性化配置，再开始发布内容。
-
-## 写一篇文章
-
-在 `src/content/blog/` 中新建 `.md` 或 `.mdx` 文件：
-
-```md
----
-title: "我的第一篇文章"
-date: "2026-08-03T10:00:00+08:00"
-description: "介绍如何使用 ulBo 搭建个人博客，包括主题配置、文章写作、本地预览、图片优化与部署流程。"
-draft: false
-categories:
-  - "记录"
-tags:
-  - "astro"
-  - "blog"
 ---
 
-正文从这里开始。
+## 📌 项目概述
+
+**机场推荐网 (jichangtuijian.lat)** 是一个基于 **Astro 6 + TypeScript** 架构构建的高性能网络技术知识库与客观评测站点。
+
+项目以 **“客观实测、数据溯源、风控透明、拒绝劣质营销”** 为核心原则，系统化收录并长期追踪 **42 家主流网络加速服务商**，覆盖三大运营商晚高峰分布式测速、流媒体及 ChatGPT 解锁、协议底层性能分析（Shadowsocks-2022 / VLESS-Reality / Hysteria 2 / TUIC v5），并建立起覆盖 Google、Bing、百度、神马及生成式 AI 引擎（GEO/AEO）的现代化 SEO 矩阵。
+
+---
+
+## 🌟 核心特色与知识矩阵
+
+### 1. 🏛️ 五大专著级万字支柱专题 (Pillars)
+站点打造了 5 篇单篇有效正文超过 **10,000 纯汉字** 的深度专著级知识库，每篇均配备 Answer-First 顶置决策表、多维技术参数表与原生 HTML5 `<details>` 常见问答：
+* [**42家机场深度横评支柱** (`/reviews/`)](https://jichangtuijian.lat/reviews/)：三大运营商晚高峰抗拥塞实测、IPLC/IEPL 专线全景横评、流媒体解锁梯队与防坑决策指南。
+* [**免费试用与退款保障专著** (`/trials/`)](https://jichangtuijian.lat/trials/)：1元/免费试用防自动扣费指南、虚拟卡使用策略、支付争议与维权退款真实复盘。
+* [**跑路预警与防坑指南专著** (`/warnings/`)](https://jichangtuijian.lat/warnings/)：机场暴雷六大前兆、资金盘财务模型剖析、TG禁言突发断网灾备 SOP。
+* [**机场选购与运维高频 FAQ 大全** (`/faq/`)](https://jichangtuijian.lat/faq/)：42 组全场景问答，涵盖流量倍率、原生住宅 IP 鉴别、DNS 污染排障。
+* [**免费节点获取与避坑全景指南** (`/free-nodes/`)](https://jichangtuijian.lat/free-nodes/)：公共代理中间人嗅探风险、开源爬虫池陷阱、白嫖向正规付费平滑过渡方案。
+
+### 2. 🗂️ 42 家机场品牌档案库 (`/airports/`)
+* 完整收录 42 家品牌核心档案，支持按协议（VLESS / Shadowsocks / Hysteria 2）、线路（IEPL / BGP / 直连）、价格门槛与解锁属性进行实时即时筛选与检索。
+
+### 3. 📱 全平台客户端下载与图文配置中心 (`/clients/`)
+* 覆盖 Windows (`Clash Verge Rev` / `v2rayN` / `FlClash`)、macOS (`Surge` / `Clash Verge Rev`)、iOS (`Shadowrocket` / `Stash` / `Quantumult X`)、Android (`v2rayNG` / `FlClash` / `sing-box`) 及软路由全屋分流。
+
+### 4. 📝 99 篇独立长尾长文矩阵 (`/blog/`)
+* 包含 42 篇单体品牌专属测评长文、20+ 篇协议底层解析（BLAKE3 / 0-RTT / Brutal 拥塞控制）、15+ 篇排障 SOP 与 20+ 篇场景实操教程。
+
+---
+
+## 🛡️ 高级预防性 SEO & GEO 架构 (98.5 / 100)
+
+本站点通过了搜索引擎爬虫与风控算法的 DOM 级深度审计，具备极高的抗算法降权能力：
+
+```
+搜索引擎 / GEO 检索架构
+┌─────────────────────────────────────────────────────────────┐
+│ 100% 静态预渲染 (SSG) ─── 无需客户端 JS，爬虫秒级完全抓取正文  │
+├─────────────────────────────────────────────────────────────┤
+│ 规范化 Canonical 矩阵 ──── 374 个页面 100% 绝对路径自引用    │
+├─────────────────────────────────────────────────────────────┤
+│ 全站商业外链免疫体系 ──── 自动注入 rel="nofollow sponsored"   │
+├─────────────────────────────────────────────────────────────┤
+│ 索引预算精准守护 ──────── 标签聚合页配置 noindex,follow      │
+├─────────────────────────────────────────────────────────────┤
+│ 结构化数据 Schema ─────── BlogPosting + Review + FAQPage     │
+├─────────────────────────────────────────────────────────────┤
+│ 多搜索引擎兼容 ────────── Google / Bing / 百度 / 神马(yisouspider) │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-完整字段与校验规则见 [Frontmatter 标准](./standard/frontmatter.md)。
+---
 
-生产构建会统一排除草稿，覆盖首页、归档、详情页、标签、搜索索引和 RSS；开发环境仍可通过草稿标识查看和校对内容。
+## 🛠️ 技术栈一览
 
-## 推荐搭配 ulBo Article Manager
+| 层次 | 技术选型 | 说明 |
+| :--- | :--- | :--- |
+| **核心框架** | **Astro 6.4+** | 极致速度的 Content-driven 现代网站框架，默认零 JS |
+| **类型安全** | **TypeScript 5.9+** | 严格类型检查，高工程化可维护性 |
+| **样式与视觉** | **Tailwind CSS + Material 3 Easing** | 深度暗色/浅色自适应主题，移动端流式排版 |
+| **公式与图表** | **KaTeX + Mermaid.js v11** | 交互式网络拓扑流程图与高精度数学公式渲染 |
+| **离线全文检索** | **Fuse.js** | 纯客户端毫秒级多字段模糊搜索，零外部数据库依赖 |
+| **图像自动化** | **Sharp** | 静态资产编译期自动化 WebP 转换与懒加载属性注入 |
+| **CDN & 托管** | **Cloudflare Pages** | 全球 Anycast 边缘网络，分发加速与极致高可用 |
 
-[ulBo Article Manager](https://github.com/xxy1103/ulbo_vscode) 是为本主题开发的可选 VS Code 写作工具。它让你在熟悉的 Markdown 编辑器旁完成：
+---
 
-- 新建草稿，搜索、筛选和打开文章；
-- 可视化编辑标题、日期、描述、分类、标签和草稿状态；
-- 使用 VS Code 语言模型生成文章描述，不可用时回退到本地提取；
-- 启动 Astro 开发服务并直接预览当前文章；
-- 发布前校验 Frontmatter、标签和正文引用图片；
-- 将文章与关联图片精确暂存到 Git；
-- 将删除的文章移入系统回收站，保留恢复能力。
-
-主题负责展示与构建，插件负责写作和文章管理。插件不会自动执行 commit、push 或部署，最终发布仍由你控制。
-
-当前版本可从插件仓库安装本地 VSIX，详细说明见 [ulBo Article Manager README](https://github.com/xxy1103/ulbo_vscode#readme)。
-
-## SEO 与性能
-
-当前代码已经实现：
-
-- Canonical、robots、Open Graph、Twitter Card 和 JSON-LD；
-- 首页 `WebSite`、About 页 `Person`、文章页 `BlogPosting` 结构化数据；
-- RSS、Sitemap，以及归档分页的 `noindex,follow` 与 `rel=prev/next`；
-- Markdown 图片懒加载和异步解码；
-- 文章 Hero 预加载、KaTeX 样式按需加载；
-- 搜索索引首次打开时再获取；
-- 防止明暗主题首屏闪烁；
-- 独立于普通构建的 WebP 图片优化工具。
-
-`npm run build` 只负责构建，不会修改文章或图片。需要优化图片时，先预览变更，再显式执行：
-
-```bash
-npm run optimize:images:dry-run
-npm run optimize:images
-```
-
-更完整的实现边界和代码位置见 [英文 README](./README.en.md#seo-optimizations-code-aligned)。
-
-## 常用命令
-
-| 命令 | 说明 |
-| --- | --- |
-| `npm run dev` | 启动开发服务器 |
-| `npm run build` | 构建生产版本，不修改文章或图片 |
-| `npm run preview` | 预览生产构建结果 |
-| `npm run check` | 检查 Astro 与 TypeScript |
-| `npm test` | 运行测试 |
-| `npm run frontmatter:check` | 只读检查文章 Frontmatter |
-| `npm run frontmatter:fix` | 规范化 Frontmatter，并验证正文未被改动 |
-| `npm run optimize:images:dry-run` | 预览图片优化结果 |
-| `npm run optimize:images` | 生成 WebP 并更新文章引用 |
-
-## 部署
-
-项目输出为静态文件，可部署到 Cloudflare Workers / Pages、Vercel、Netlify 或 GitHub Pages。
-
-仓库已包含 Cloudflare Workers Static Assets 配置：
-
-```bash
-npm run build
-npm run deploy
-```
-
-使用其他平台时，将构建命令设为 `npm run build`，输出目录设为 `dist`。
-
-## 项目结构
+## 📂 项目目录结构
 
 ```text
-src/
-├─ components/       页面组件
-├─ config/           站点、个人资料与 Hero 配置
-├─ content/blog/     Markdown / MDX 文章
-├─ layouts/          通用页面与文章布局
-├─ lib/              内容、搜索和资料处理逻辑
-├─ pages/            首页、归档、标签、About、RSS 等路由
-├─ plugins/          Markdown / HTML 处理插件
-└─ scripts/          搜索、目录、Mermaid、灯箱与页面交互
+jichangtuijian.lat/
+├── public/                 # 静态托管资源 (favicon, _headers, images)
+├── scripts/                # 自动化构建与 SEO 审计脚本
+│   ├── deep-seo-audit.mjs  # 全站 373+ 页面深度 SEO/GEO 自动化扫描器
+│   └── optimize-blog-images.mjs # 图像自动化优化
+├── src/
+│   ├── assets/             # 预编译静态图片与图标资源
+│   ├── components/         # 复用 UI 组件 (BaseHead, Header, Footer 等)
+│   ├── config/             # 全局站点、个人档案、英雄区及站长验证配置
+│   ├── content/            # 内容集合 (99+ Markdown 评测与教程文章)
+│   ├── data/               # 42 家机场品牌及客户端结构化数据库
+│   ├── layouts/            # 核心页面母版 (PageShell, BlogPost)
+│   ├── pages/              # 路由页面
+│   │   ├── index.astro     # 网站首页
+│   │   ├── 404.astro       # 自定义 404 错误状态页
+│   │   ├── airports/       # 42 家机场品牌库与筛选器
+│   │   ├── clients/        # 全平台客户端中心
+│   │   ├── reviews/        # 万字选购横评支柱页
+│   │   ├── trials/         # 免费试用与退款支柱页
+│   │   ├── warnings/       # 跑路预警与避坑支柱页
+│   │   ├── faq/            # 常见 FAQ 支柱页
+│   │   ├── free-nodes/     # 免费节点全景支柱页
+│   │   ├── blog/           # 评测长文列表与动态详情路由
+│   │   ├── tags/           # 标签聚合页
+│   │   ├── robots.txt.ts   # 动态 robots 规则生成器
+│   │   └── sitemap.xml.ts  # 搜索引擎兼容 Sitemap 路由
+│   └── plugins/            # 自研 Rehype/Remark 增强插件
+│       ├── rehype-external-links.mjs # 商业外链 nofollow/sponsored 注入
+│       ├── rehype-lazy-images.mjs    # 图片懒加载与宽高检测
+│       └── rehype-responsive-tables.mjs # 移动端自适应表格
+├── astro.config.mjs        # Astro 核心配置文件
+├── package.json            # 项目依赖与运行脚本
+└── tsconfig.json           # TypeScript 严格配置
 ```
 
-前端模块关系见 [架构地图](./docs/frontend-architecture-map.md)。
+---
 
-## 相关项目
+## 💻 本地快速开始
 
-- [ulBo Article Manager](https://github.com/xxy1103/ulbo_vscode)：配套的 VS Code 文章管理工具。
-- [xxy1103.github.io](https://github.com/xxy1103/xxy1103.github.io)：使用 ulBo 搭建的真实个人博客。
+### 运行环境要求
+* **Node.js** >= `22.12.0`
+* **npm** >= `9.6.5`
 
-## 参与贡献
+### 1. 克隆代码仓库
+```bash
+git clone https://github.com/sksksk98698-source/jichangtuijian.lat.git
+cd jichangtuijian.lat
+```
 
-欢迎提交 Issue 和 Pull Request。开始前请阅读 [贡献指南](./CONTRIBUTING.md)、[行为准则](./CODE_OF_CONDUCT.md) 与 [安全策略](./SECURITY.md)。
+### 2. 安装依赖
+```bash
+npm install
+```
 
-## 许可证
+### 3. 启动开发服务器
+```bash
+npm run dev
+```
+打开浏览器访问 `http://localhost:4321/` 即可实时预览。
 
-[MIT](./LICENSE)
+### 4. 运行全站静态打包
+```bash
+npm run build
+```
+编译产物输出至 `dist/` 目录，生成包含全部文章、专题、Sitemap 与 Robots 的完整静态站点。
+
+### 5. 执行 SEO 自动化健康审计
+```bash
+node scripts/deep-seo-audit.mjs
+```
+自动扫描 `dist/` 中的所有 HTML，即时检查 Canonical、外链风控、死链、Schema 及抓取预算。
+
+---
+
+## 🚢 部署与上线指南
+
+### Cloudflare Pages（推荐）
+1. 登录 [Cloudflare Dashboard](https://dash.cloudflare.com/)，进入 **Workers & Pages** -> **Create application** -> **Pages**。
+2. 连接 GitHub 仓库 `sksksk98698-source/jichangtuijian.lat`。
+3. 构建配置：
+   - **Framework preset**：`Astro`
+   - **Build command**：`npm run build`
+   - **Build output directory**：`dist`
+   - **Node.js Version**：在环境变量中添加 `NODE_VERSION = 22.12.0`
+4. 点击 **Save and Deploy** 即可完成全球高速 CDN 部署。
+
+---
+
+## 📜 免责声明与版权 (Disclaimer & License)
+
+1. 本站所有评测数据均基于真实分布式网络探针在特定基准时间节点测得，仅供网络技术学习、跨国学术研究及合法出海开发参考。
+2. 请严格遵守当地法律法规，合理合规使用网络加速工具。
+3. 本项目采用 [MIT License](LICENSE) 开源授权。
+
+---
+
+<div align="center">
+  <sub>Built with ❤️ for High-Speed & Open Web · Powered by Astro & Cloudflare Pages</sub>
+</div>

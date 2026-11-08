@@ -4,7 +4,7 @@ import type {
 } from 'astro:transitions/client';
 
 type NavigationFeedbackWindow = Window & {
-	__ulboNavigationFeedbackReady?: boolean;
+	__siteNavFeedbackReady?: boolean;
 };
 
 const LOADING_STATE = 'loading';
@@ -13,8 +13,8 @@ const FINISH_DURATION = 260;
 
 export function setupNavigationFeedback() {
 	const runtimeWindow = window as NavigationFeedbackWindow;
-	if (runtimeWindow.__ulboNavigationFeedbackReady) return;
-	runtimeWindow.__ulboNavigationFeedbackReady = true;
+	if (runtimeWindow.__siteNavFeedbackReady) return;
+	runtimeWindow.__siteNavFeedbackReady = true;
 
 	let pendingLink: HTMLAnchorElement | null = null;
 	let finishTimer: number | null = null;

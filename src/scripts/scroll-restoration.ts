@@ -1,11 +1,11 @@
 import type { TransitionBeforePreparationEvent } from 'astro:transitions/client';
 
 const SCROLLER_ID = 'main-content';
-const SCROLL_STATE_KEY = '__ulboMainScrollTop';
+const SCROLL_STATE_KEY = '__siteScrollTop';
 const HISTORY_SAVE_INTERVAL_MS = 500;
 
 type ScrollRestorationWindow = Window & {
-	__ulboMainScrollRestorationReady?: boolean;
+	__siteScrollRestorationReady?: boolean;
 };
 
 type HistoryRecord = Record<string, unknown>;
@@ -74,8 +74,8 @@ export function createRateLimitedSaver(
 
 export function setupMainScrollRestoration() {
 	const runtimeWindow = window as ScrollRestorationWindow;
-	if (runtimeWindow.__ulboMainScrollRestorationReady) return;
-	runtimeWindow.__ulboMainScrollRestorationReady = true;
+	if (runtimeWindow.__siteScrollRestorationReady) return;
+	runtimeWindow.__siteScrollRestorationReady = true;
 
 	let activeScroller: HTMLElement | null = null;
 	let pendingRestoreTop: number | null = getMainScrollTop(history.state);

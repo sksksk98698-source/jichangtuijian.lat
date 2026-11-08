@@ -1,8 +1,8 @@
 {
-  "name": "ulbo",
-  "description": "An Astro v6-ready configurable personal blog theme with SEO, search, tags, and Markdown content support.",
+  "name": "jichangtuijian",
+  "description": "高速稳定的网络加速节点与评测指南",
   "type": "module",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "engines": {
     "node": ">=22.12.0",
     "npm": ">=9.6.5"

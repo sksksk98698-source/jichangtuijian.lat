@@ -34,7 +34,7 @@ describe('filterTagSearchHits', () => {
 
 describe('createTagFilterHistoryUpdate', () => {
 	it('preserves Astro and custom history fields while replacing the tag hash', () => {
-		const original = { index: 4, scrollX: 0, scrollY: 120, __ulboMainScrollTop: 640 };
+		const original = { index: 4, scrollX: 0, scrollY: 120, __siteScrollTop: 640 };
 		const update = createTagFilterHistoryUpdate(original, 'C#');
 
 		expect(update).toEqual({

@@ -1,0 +1,1683 @@
+import fs from 'fs';
+
+const monographSections = [
+  // Section 1: Intro & Core Answers
+  `
+          <!-- 模块 1：开头直接提供答案与核心价值承诺 -->
+          <section id="executive-summary" class="about-section">
+            <div class="section-badge">核心摘要与答案</div>
+            <h2 class="section-title">写在前面：我们是谁，以及这份评测体系能帮你解决什么问题</h2>
+            <p class="lead-text">
+              在跨境网络连接与中继节点服务（俗称“机场”）信息极度不对称的当下，大量推广内容充斥着夸张宣传、虚假跑分、伪专线冒充真实物理专线，以及隐蔽的推广佣金驱动。用户往往在支付半年甚至年费后，遭遇晚高峰断流、严重丢包、IP池被封禁导致ChatGPT或流媒体被频繁拦截等严重影响正常工作与学习的糟糕体验。
+            </p>
+            <p>
+              <strong>「机场推荐」评测团队</strong>由多位长期从事计算机网络体系结构、分布式系统性能监控、BGP网络路由分析的工程师与外贸跨境从业人员自发组建。我们不隶属于任何一家机场供应商或代理开发团队，本站设立的核心宗旨是：<strong>建立一套完全可验证、可重复运行、透明客观的跨境网络代理服务量化测评基准（Benchmark）</strong>，彻底消除网络选购中的信息差。
+            </p>
+            <p>
+              无论你是需要查阅学术文献的高校师生、需要稳定调用 OpenAI / Claude API 的开发者、处理跨国业务的外贸团队，还是追求极致 4K/8K HDR 流媒体观影体验的影音爱好者，本文档与本站测评矩阵将为你提供详尽、准确的选购参考与实战避坑指南。
+            </p>
+
+            <!-- 核心结论速览表 -->
+            <div class="highlight-card">
+              <h3 class="highlight-title">💡 快速决策：不同核心需求的最优网络选型结论</h3>
+              <p class="highlight-subtitle">根据我们 2026 年最新持续自动化探针监测数据，直接给出核心选型建议：</p>
+              <div class="table-container">
+                <table class="monograph-table">
+                  <thead>
+                    <tr>
+                      <th>使用场景</th>
+                      <th>推荐核心线路架构</th>
+                      <th>推荐协议类型</th>
+                      <th>核心关注指标</th>
+                      <th>代表性服务商</th>
+                      <th>内链直达</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>高频 AI 交互 / 外贸办公</strong></td>
+                      <td>沪日/深港/广港 IEPL/IPLC 物理内网专线</td>
+                      <td>Shadowsocks 2022 / Trojan</td>
+                      <td>原生家庭/商宽IP纯净度、零丢包率、SLA≥99.9%</td>
+                      <td>光速云、暮光加速</td>
+                      <td><a href="/blog/guangsucloud-review/">查看光速云深度实测</a></td>
+                    </tr>
+                    <tr>
+                      <td><strong>4K/8K 超高清流媒体</strong></td>
+                      <td>BGP 入口多线优化专线 / 优质直连隧道</td>
+                      <td>VLESS-XTLS / Hysteria 2</td>
+                      <td>单线程带宽≥150Mbps、Netflix/Disney+全解锁</td>
+                      <td>飞猫云、西游云</td>
+                      <td><a href="/airports/">前往品牌对比库</a></td>
+                    </tr>
+                    <tr>
+                      <td><strong>弱网环境 / 移动办公</strong></td>
+                      <td>UDP 深度调优加速（BBRv3+抗弱网丢包）</td>
+                      <td>Hysteria 2 / TUIC v5</td>
+                      <td>30%丢包下吞吐保全率、握手延迟&lt;80ms</td>
+                      <td>急速云、云翼网络</td>
+                      <td><a href="/clients/">下载全平台客户端</a></td>
+                    </tr>
+                    <tr>
+                      <td><strong>高性价比 / 备用应急</strong></td>
+                      <td>公网隧道中转 / 动态按量计费节点</td>
+                      <td>VLESS / Trojan / SS</td>
+                      <td>月付实价&lt;15元/月、无过期时间按量包</td>
+                      <td>肥猫云、大哥云</td>
+                      <td><a href="/airports/">按价格筛选机场</a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+  `,
+
+  // Section 2: Testing Methodology & Hardware Architecture
+  `
+          <!-- 模块 2：量化评测体系与自动化监控架构 -->
+          <section id="testing-methodology" class="about-section">
+            <div class="section-badge">评测基准与测试环境</div>
+            <h2 class="section-title">科学评测方法论：五大硬性指标与多地探针网络</h2>
+            <p>
+              网络体验绝非单次测速截图（Speedtest）上的“千兆带宽”所能概括。单次瞬间跑分极易受到测试服务器节点距离、短时突发带宽缓冲区（Burst Buffer）、以及服务商针对测速域名进行的白名单QoS流量调度所干扰。为了提供具有长期参考价值的客观数据，我们构建了<strong>多节点分布式自动化探针阵列</strong>。
+            </p>
+
+            <h3 class="subsection-title">1. 分布式监测探针部署拓扑</h3>
+            <p>
+              我们的测试探针部署于中国大陆三大骨干运营商的典型物理网络节点，并配置固定物理机房与真实家庭千兆宽带环境：
+            </p>
+            <ul class="styled-list">
+              <li><strong>华东入口探针（电信核心）</strong>：上海电信千兆家庭宽带（AS4812）与江苏南京电信机房服务器，专用于监控沪日、沪美、沪韩等东向跨境光缆的中转与直连质量。</li>
+              <li><strong>华南入口探针（联通核心）</strong>：广东广州联通千兆宽带（AS4837）与深圳联通BGP机房，用于追踪广港、深港内网专线（IPLC/IEPL）的过境跳数与实际物理握手延迟。</li>
+              <li><strong>华北与中西部探针（移动/多线）</strong>：北京移动家庭宽带（AS9808）与四川成都多线服务器，用于模拟晚高峰期间移动运营商在国际出口跨网互联互通瓶颈下的极端丢包表现。</li>
+              <li><strong>海外受控锚点机房</strong>：分别于东京（Equinix TY8）、香港（Mega-i）、新加坡（Equinix SG1）、法兰克福（Interxion FRA）以及洛杉矶（CoreSite LA2）部署测试回程验证服务器，进行端到端双向回环诊断。</li>
+            </ul>
+
+            <h3 class="subsection-title">2. 评测指标数学模型与权重配比</h3>
+            <p>
+              为了避免主观印象分影响评测公正性，我们确立了一套加权综合评分数学模型（Comprehensive Quality Score, CQS）：
+            </p>
+            <div class="code-block-mock">
+              <pre><code>CQS = (W1 &times; S_peak_throughput) + (W2 &times; S_latency_stability) + (W3 &times; S_packet_loss) + (W4 &times; S_unlock_purity) + (W5 &times; S_sla_uptime)
+
+其中权重分配比例：
+1. 晚高峰吞吐保全率 (W1 = 25%): 20:00-23:00 期间实测带宽 &divide; 凌晨闲时带宽基线。
+2. 延迟与抖动稳定性 (W2 = 25%): 连续 1000 次 ICMP/TCP Ping 的标准差（Jitter &le; 3ms 为满分）。
+3. 丢包抑制率 (W3 = 20%): 模拟晚高峰期间发包丢包率，专线要求丢包率 &le; 0.1%，公网中转 &le; 2.0%。
+4. IP 纯净度与流媒体解锁 (W4 = 15%): 原生住宅/商用IP占比、Google验证码触发频次、风控库欺诈值评分。
+5. 服务可用性与 SLA (W5 = 15%): 节点月度不可用时长统计、入口故障自动切换（Failover）收敛时间。</code></pre>
+            </div>
+
+            <div class="table-container">
+              <table class="monograph-table">
+                <thead>
+                  <tr>
+                    <th>评测维度</th>
+                    <th>测试工具与命令</th>
+                    <th>合格标准（基础及格线）</th>
+                    <th>优秀标准（高端专线基准）</th>
+                    <th>用户实际感知影响</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>晚高峰下行带宽</strong></td>
+                    <td><code>speedtest-cli --server-id</code> 多线程并发</td>
+                    <td>&ge; 50 Mbps</td>
+                    <td>&ge; 300 Mbps 至 1 Gbps</td>
+                    <td>决定 4K/8K 视频是否缓冲、多开网页响应时间</td>
+                  </tr>
+                  <tr>
+                    <td><strong>往返延迟抖动 (Jitter)</strong></td>
+                    <td><code>mtr -rw -c 1000 --tcp</code> 持续压测</td>
+                    <td>Jitter &lt; 15 ms</td>
+                    <td>Jitter &le; 2 ms（如丝顺滑）</td>
+                    <td>决定网络游戏联机不漂移、远程桌面（SSH/RDP）不卡键</td>
+                  </tr>
+                  <tr>
+                    <td><strong>丢包率 (Packet Loss)</strong></td>
+                    <td>持续并发 TCP Ping 与 HTTP GET 探针</td>
+                    <td>Loss &lt; 3.0%</td>
+                    <td>Loss &le; 0.05%（物理专线级）</td>
+                    <td>丢包率一旦超过 5%，TCP 拥塞控制窗口将急剧缩小致断流</td>
+                  </tr>
+                  <tr>
+                    <td><strong>IP 欺诈度 (Fraud Score)</strong></td>
+                    <td>Scamalytics、IPQualityScore API 自动化查询</td>
+                    <td>Score &lt; 40（适度干净）</td>
+                    <td>Score &le; 10（原生低风控干净机房/住宅）</td>
+                    <td>决定 ChatGPT 是否被拒、Google 是否狂弹九宫格验证码</td>
+                  </tr>
+                  <tr>
+                    <td><strong>流媒体解锁覆盖</strong></td>
+                    <td>自研 MediaUnlock-Checker 自动化脚本</td>
+                    <td>支持香港/日本 Netflix 原生剧</td>
+                    <td>支持 Netflix 全球自制+非自制、Disney+、DMM、TikTok</td>
+                    <td>决定是否能观看特定版权受限内容或外区独占影视剧</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+  `,
+
+  // Section 3: Deep Technical Comparison of Network Lines & Architectures
+  `
+          <!-- 模块 3：网络线路与传输协议全景深度解析 -->
+          <section id="lines-and-protocols" class="about-section">
+            <div class="section-badge">技术原理与实测差异</div>
+            <h2 class="section-title">透视物理线路与代理传输协议：技术原理与实测差异</h2>
+            <p>
+              了解机场底层线路与传输协议，能够帮助你在挑选服务时一眼识破商家的虚假营销话术。很多标榜“千兆专线”的廉价机场，实际上使用的是普通的公网隧道中转甚至是直连服务器，在晚高峰因骨干网拥堵而彻底瘫痪。
+            </p>
+
+            <h3 class="subsection-title">1. 跨境网络物理线路架构全景剖析</h3>
+            <p>从网络物理层与路由传输路径来看，目前主流服务商采用的链路可严格划分为四个梯队：</p>
+
+            <div class="timeline-container">
+              <div class="timeline-step">
+                <div class="step-num">梯队 1</div>
+                <div class="step-body">
+                  <h4>真实物理专线（IEPL / IPLC）—— 追求绝对稳定与低延迟的黄金之选</h4>
+                  <p>
+                    <strong>IPLC（International Private Leased Circuit，国际私有租用线路）</strong>与<strong>IEPL（International Ethernet Private Line，国际以太网专线）</strong>是点对点的二层/二层半物理租用光缆。
+                  </p>
+                  <p>
+                    <strong>核心优势</strong>：数据从国内入口机房直接经由海底光缆或陆地物理专线传输至境外出口机房，完全不经过公网国际出口路由器（GFW/公网节点）。因此，专线具有：
+                    <br>&bull; <strong>绝对抗封锁</strong>：不受公网封锁干扰，协议无需复杂伪装加密也能稳定运行；
+                    <br>&bull; <strong>极低物理延迟</strong>：深圳到香港可达 3ms～5ms，上海到东京仅 26ms～28ms，全程无公网路由绕路；
+                    <br>&bull; <strong>零高峰拥堵</strong>：带宽由运营商提供物理保障，晚高峰丢包率通常稳定在 0%～0.05%。
+                    <br><strong>代表服务商</strong>：如本站榜首的<a href="/blog/guangsucloud-review/">光速云</a>采用全 IPLC/IEPL 内网专线集群。
+                  </p>
+                </div>
+              </div>
+
+              <div class="timeline-step">
+                <div class="step-num">梯队 2</div>
+                <div class="step-body">
+                  <h4>BGP 多线中转公网隧道 —— 兼顾延迟与性价比的高性能方案</h4>
+                  <p>
+                    BGP（Border Gateway Protocol）中转方案在国内部署了具备中国电信、中国联通、中国移动三网 BGP 互联互通接入能力的国内前置入口服务器，境内流量汇聚后，通过安全公网加密隧道（如 TLS / WireGuard / 专有传输协议）跨国传输至境外落地机房。
+                  </p>
+                  <p>
+                    <strong>优势与局限</strong>：BGP 入口能够让移动、联通、电信用户都获得极佳的近端接入体验（无论用哪家宽带都不会出现跨网高延迟）；但跨国段依然依赖公网传输，在极端特殊时期可能会受到公网 QoS 限速或丢包波动。
+                  </p>
+                </div>
+              </div>
+
+              <div class="timeline-step">
+                <div class="step-num">梯队 3</div>
+                <div class="step-body">
+                  <h4>优质直连优化线路（CN2 GIA / 联通 9929 / CMIN2）</h4>
+                  <p>
+                    不通过国内中转服务器，客户端直接与境外服务器建立连接，但路由经过电信顶级企业专网（CN2 GIA AS4809）、中国联通 A 网精品线路（CU Premium 9929）或中国移动二期优质精品线路（CMIN2 AS58807）。
+                  </p>
+                  <p>
+                    <strong>适用场景</strong>：单机带宽上限高、晚高峰优先级高，但直连受物理距离制约（如美西直连最低延迟也在 130ms 左右），且受公网干扰风险高于专线。
+                  </p>
+                </div>
+              </div>
+
+              <div class="timeline-step">
+                <div class="step-num">梯队 4</div>
+                <div class="step-body">
+                  <h4>普通 163 公网直连（AS4134 / AS4837 普通网络）</h4>
+                  <p>
+                    俗称“直连低价小机场”，国际出口在晚高峰时段由于民用带宽超售，丢包率往往高达 30%～50%。仅适合预算极度有限且只在白天非高峰期做临时轻量浏览的用户。
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <h3 class="subsection-title">2. 核心代理传输协议技术对比矩阵</h3>
+            <p>
+              选用何种传输协议直接关系到客户端的 CPU 耗电量、并发性能、连接握手延迟，以及面对运营商深度包检测（DPI）时的抗识别能力。
+            </p>
+            <div class="table-container">
+              <table class="monograph-table">
+                <thead>
+                  <tr>
+                    <th>协议类型</th>
+                    <th>底层传输层</th>
+                    <th>加密/伪装特征</th>
+                    <th>客户端算力开销</th>
+                    <th>典型网络环境表现</th>
+                    <th>推荐客户端支持</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Shadowsocks 2022</strong></td>
+                    <td>TCP / UDP</td>
+                    <td>AEAD_2022，强随机握手，防重放攻击</td>
+                    <td>极低（纯对称加密，硬件加速）</td>
+                    <td>专线最佳拍档，吞吐量大、延迟极低、不耐公网特征探测</td>
+                    <td>Clash Verge Rev, Sing-box, Surge</td>
+                  </tr>
+                  <tr>
+                    <td><strong>VLESS-XTLS-Reality</strong></td>
+                    <td>TCP (TLS 1.3)</td>
+                    <td>借用真实合规大型网站（如苹果/微软）证书与SNI</td>
+                    <td>低（XTLS 原生直通，零重复内存拷贝）</td>
+                    <td>公网直连抗封锁天花板，能够完美伪装为正常外贸大流量</td>
+                    <td>Sing-box, v2rayN, Shadowrocket</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Trojan-GFW</strong></td>
+                    <td>TCP (TLS)</td>
+                    <td>完全仿冒标准 HTTPS 流量，443 端口合法回落</td>
+                    <td>中等（标准 OpenSSL 处理）</td>
+                    <td>成熟稳定，兼容性极佳，中转与专线均广泛适配</td>
+                    <td>全平台主流客户端全覆盖</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Hysteria 2 (歇斯底里)</strong></td>
+                    <td>UDP (QUIC)</td>
+                    <td>修改版 QUIC 协议，集成自研 Brutal 拥塞控制算法</td>
+                    <td>中等偏高（高吞吐需调度多核CPU）</td>
+                    <td>在 20%～40% 极高丢包的恶劣公网中强行跑满物理带宽</td>
+                    <td>Sing-box, Clash Verge Rev, Nekobox</td>
+                  </tr>
+                  <tr>
+                    <td><strong>TUIC v5</strong></td>
+                    <td>UDP (QUIC)</td>
+                    <td>原生 QUIC 协议 0-RTT 极速握手机制</td>
+                    <td>低（专为移动设备调优优化）</td>
+                    <td>高频网络切换（如蜂窝与Wi-Fi切换）无感重连，适合手机端</td>
+                    <td>Sing-box, Shadowrocket, Loon</td>
+                  </tr>
+                  <tr>
+                    <td><strong>VMess + WS + TLS</strong></td>
+                    <td>TCP + HTTP</td>
+                    <td>双重重叠加密与 WebSocket 握手封装</td>
+                    <td>较高（多重解包与内存复制开销）</td>
+                    <td>历史方案，现阶段延迟偏高且并发吞吐受限，逐步被新协议替代</td>
+                    <td>老版本客户端兼容</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+  `,
+
+  // Section 4: 42 Airport Brands Classification Model & Tiering
+  `
+          <!-- 模块 4：42家机场品牌分类模型与全景选型图谱 -->
+          <section id="brands-classification" class="about-section">
+            <div class="section-badge">品牌库全景图谱</div>
+            <h2 class="section-title">42家主流机场分类模型：定位、成本与适用群体全景图</h2>
+            <p>
+              为了让用户在挑选 42 家机场时不产生选择疲劳，我们基于运营年限、基础设施投入成本、节点路由架构以及定价策略，将全站收录的 42 家品牌系统化归纳为四大类别：
+            </p>
+
+            <div class="category-grid">
+              <div class="category-card">
+                <div class="category-tag tag-flagship">旗舰专线型（Tier 1）</div>
+                <h4>高可用工业级专线机场</h4>
+                <p class="cat-summary">
+                  <strong>核心特征</strong>：全节点采用物理 IPLC / IEPL 专线，国内具备多地 BGP 入口与智能 DNS 解析调度，配备自动化故障转移（Failover），SLA 保障通常在 99.9% 以上。节点提供住宅/商用纯净 IP。
+                </p>
+                <div class="cat-meta">
+                  <span><strong>价格区间</strong>：&yen;25 &sim; &yen;60 /月</span>
+                  <span><strong>代表品牌</strong>：光速云、暮光加速、飞猫云、西游云</span>
+                </div>
+                <div class="cat-target">
+                  <strong>最适合人群</strong>：企业外贸业务、跨国远程办公、深度 AI 开发者、金融股票交易员，以及对网络稳定性有严苛要求的高频用户。
+                </div>
+              </div>
+
+              <div class="category-card">
+                <div class="category-tag tag-value">均衡大流量型（Tier 2）</div>
+                <h4>高性能均衡大流量机场</h4>
+                <p class="cat-summary">
+                  <strong>核心特征</strong>：采用 BGP 优质公网隧道中转或少量专线混合架构，主打高带宽储备与合理价格。每月流量充沛（普遍在 200G &sim; 1000G 之间），高峰期能跑满 300M～500M 带宽。
+                </p>
+                <div class="cat-meta">
+                  <span><strong>价格区间</strong>：&yen;15 &sim; &yen;30 /月</span>
+                  <span><strong>代表品牌</strong>：急速云、云翼网络、蓝天云、星辰加速</span>
+                </div>
+                <div class="cat-target">
+                  <strong>最适合人群</strong>：YouTube 4K/8K 视频党、Steam / PS5 游戏下载更新、多设备家庭共享、追剧爱好者。
+                </div>
+              </div>
+
+              <div class="category-card">
+                <div class="category-tag tag-budget">轻量经济型（Tier 3）</div>
+                <h4>低门槛实用入门机场</h4>
+                <p class="cat-summary">
+                  <strong>核心特征</strong>：以公网中转和优质直连为主，定价极其亲民，起步月付往往低至十元甚至数元，能够满足绝大多数常规网络浏览和文献查阅需求。
+                </p>
+                <div class="cat-meta">
+                  <span><strong>价格区间</strong>：&yen;8 &sim; &yen;15 /月</span>
+                  <span><strong>代表品牌</strong>：肥猫云、大哥云、小飞象、闪电猫</span>
+                </div>
+                <div class="cat-target">
+                  <strong>最适合人群</strong>：在校学生、仅偶尔需要查阅国外资料的轻度用户、个人自媒体备用网络通道。
+                </div>
+              </div>
+
+              <div class="category-card">
+                <div class="category-tag tag-payg">按量付费备用型（Tier 4）</div>
+                <h4>无到期日应急按量机场</h4>
+                <p class="cat-summary">
+                  <strong>核心特征</strong>：不设月付周期限制，流量永久有效或有效期极长（1～2年）。账户内充值多少用多少，放在主力订阅之外作为“第二降落伞”。
+                </p>
+                <div class="cat-meta">
+                  <span><strong>价格区间</strong>：&yen;20 &sim; &yen;50 购买 50G &sim; 200G 纯按量包</span>
+                  <span><strong>代表品牌</strong>：云帆加速、极客云按量包等</span>
+                </div>
+                <div class="cat-target">
+                  <strong>最适合人群</strong>：平时使用频率极低、或已有主力机场但为了防止主服务商偶发故障而配置的灾备用户。
+                </div>
+              </div>
+            </div>
+
+            <p class="section-notice">
+              👉 想了解全部 42 家机场的最新月付价格、优惠码、协议支持与测速排行榜？请直接访问我们的交互式查询中心：<a href="/airports/" class="text-link">「42家主流机场多维品牌对比库」</a>。
+            </p>
+          </section>
+  `,
+
+  // Section 5: Streaming & AI Unlocking Methodology
+  `
+          <!-- 模块 5：流媒体与 AI 解锁真伪核验体系 -->
+          <section id="unlock-verification" class="about-section">
+            <div class="section-badge">解锁与风控核验</div>
+            <h2 class="section-title">流媒体与 AI 大模型解锁真伪核验：警惕 DNS 分流与风控陷阱</h2>
+            <p>
+              “支持 ChatGPT 和 Netflix 解锁”是目前机场宣传中最普遍的一句承诺，但许多用户买完之后很快发现：ChatGPT 仍然频报 <code>Access Denied (1020)</code>，或者网页端虽然能打开，但 iOS 官方 App 登录直接卡死；Netflix 只能看自制剧（Netflix Originals），无法观看具有版权保护的当地热播剧集。
+            </p>
+
+            <h3 class="subsection-title">1. 解锁技术背后的两大实现方式</h3>
+            <div class="comparison-dual-box">
+              <div class="dual-item">
+                <h4 class="dual-title is-good">✅ 原生原生 IP 落地直接解锁（真正高质量）</h4>
+                <p>
+                  机场在境外的落地服务器拥有本地 ISP 分配的原生商业宽带或住宅 IP（Residential IP），IP 归属地与物理机房完全一致。
+                </p>
+                <ul class="styled-list">
+                  <li><strong>风控信任度极高</strong>：IP 数据库中欺诈值（Fraud Score）通常 &lt; 15。</li>
+                  <li><strong>全平台完美支持</strong>：无论是网页端还是移动端 App，均能通过平台严苛的 TLS 指纹与 IP 拓扑校验。</li>
+                  <li><strong>带宽无损耗</strong>：无需二次中转，视频加载即开即播。</li>
+                </ul>
+              </div>
+
+              <div class="dual-item">
+                <h4 class="dual-title is-warning">⚠️ DNS 劫持重定向（SNI Proxy 流媒体分流，廉价替代品）</h4>
+                <p>
+                  机场落地机房实际上是价格低廉的广播数据中心 IP，无法直接通过平台检测；机场通过在节点内部拦截流媒体域名的 DNS 请求，将其重定向至少数几台专门解锁的代理服务器（SNI Proxy）进行请求代发。
+                </p>
+                <ul class="styled-list">
+                  <li><strong>高峰期极易卡顿</strong>：所有用户看视频的流量都被挤压到几台解锁机上，晚高峰极易缓冲转圈。</li>
+                  <li><strong>容易引发连带风控</strong>：当其中一台分流机被 OpenAI 或风控系统拉黑时，该机场所有节点的解锁功能瞬间集体失效。</li>
+                </ul>
+              </div>
+            </div>
+
+            <h3 class="subsection-title">2. 常见 AI 平台与流媒体服务风控级别速查</h3>
+            <div class="table-container">
+              <table class="monograph-table">
+                <thead>
+                  <tr>
+                    <th>目标平台</th>
+                    <th>风控机制与特征</th>
+                    <th>常见错误代码/表现</th>
+                    <th>对机场节点的严苛要求</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>OpenAI (ChatGPT)</strong></td>
+                    <td>Arkose Labs 行为验证、Cloudflare Turnstile、IP 历史信誉评分</td>
+                    <td><code>Unable to load site</code>, <code>Error 1020</code>, 循环九宫格验证码</td>
+                    <td>要求落地节点非大机房广播段，反向代理干净，无高频爬虫污染</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Claude 3.5 / Anthropic</strong></td>
+                    <td>极度严苛的注册地 IP 校验、账户关联风控、信用卡账单地址校验</td>
+                    <td><code>App unavailable in your region</code>, 注册瞬间被封号</td>
+                    <td>需要长期固定且干净的美国或英国原生住宅/企业固定 IP 节点</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Netflix (奈飞)</strong></td>
+                    <td>自制剧仅需普通海外IP，非自制剧（如破案剧/院线大片）校验本地版权库</td>
+                    <td>只能搜索到带有“N”标自制剧，热门版权剧集搜索为空</td>
+                    <td>落地 IP 必须在 MaxMind 与 IP2Location 中被标记为本地住宅/宽带ISP</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Disney+ (迪士尼)</strong></td>
+                    <td>严格核验 ASN 归属地与 IPv4/IPv6 双栈一致性</td>
+                    <td><code>Error code 83</code>, <code>Error code 73</code></td>
+                    <td>要求节点支持原生 IPv6 或关闭可能引起泄露的 IPv6 隧道</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+  `,
+
+  // Section 6: Real Decision Tree & Scenario Guide
+  `
+          <!-- 模块 6：多场景科学选购实战决策指南 -->
+          <section id="decision-tree" class="about-section">
+            <div class="section-badge">实战决策树</div>
+            <h2 class="section-title">科学选购与避坑决策树：按预算与场景找到专属方案</h2>
+            <p>
+              没有所谓“最好”的机场，只有最适合你当前需求与预算的组合。为了让你不花冤枉钱，我们为你绘制了清晰的<strong>5大用户画像选型决策流程</strong>：
+            </p>
+
+            <div class="decision-flow">
+              <div class="decision-card">
+                <div class="card-header">
+                  <span class="user-badge">画像 A</span>
+                  <h3>跨境电商外贸 / 跨国办公协同族</h3>
+                </div>
+                <div class="card-content">
+                  <p><strong>核心诉求</strong>：登录 PayPal、Stripe、Shopify 后台、外贸收发邮件、Google Docs 协同。最怕中途掉线导致操作回退或 IP 跳动引发风控封店。</p>
+                  <p><strong>避坑铁律</strong>：<strong>绝不能用频繁变动出口 IP 的廉价直连机场！</strong> 必须认准具备<strong>固定出口 IP 或支持企业独享节点的 IPLC 专线服务</strong>。</p>
+                  <div class="plan-recommend">
+                    <strong>首选配置</strong>：<a href="/blog/guangsucloud-review/">光速云</a>旗舰套餐（全节点 IEPL，支持多设备稳定登录）。
+                  </div>
+                </div>
+              </div>
+
+              <div class="decision-card">
+                <div class="card-header">
+                  <span class="user-badge">画像 B</span>
+                  <h3>AI 开发者 / 自动化 Prompt 生产力用户</h3>
+                </div>
+                <div class="card-content">
+                  <p><strong>核心诉求</strong>：高频调用 ChatGPT-4o、Claude 3.5 Sonnet、Midjourney、GitHub Copilot，要求低等待延迟与高并发稳定性。</p>
+                  <p><strong>避坑铁律</strong>：避免使用低价大机房公共中转节点。推荐采用支持 <strong>Shadowsocks 2022 / Trojan 协议的高纯净度专线节点</strong>，并配置客户端直连规则。</p>
+                  <div class="plan-recommend">
+                    <strong>首选配置</strong>：<a href="/airports/">暮光加速 / 光速云</a>，搭配 Sing-box 或 Clash Verge Rev 的精准域名分流规则。
+                  </div>
+                </div>
+              </div>
+
+              <div class="decision-card">
+                <div class="card-header">
+                  <span class="user-badge">画像 C</span>
+                  <h3>4K/8K 影音爱好者 / 追剧党</h3>
+                </div>
+                <div class="card-content">
+                  <p><strong>核心诉求</strong>：开通 Apple TV、Google TV、电视盒子大屏观影，日常看 Netflix、Disney+、YouTube 4K 60fps 原画画质，每月消耗流量 &gt; 300GB。</p>
+                  <p><strong>避坑铁律</strong>：不要盲目购买高溢价小流量商务专线。应选择<strong>高带宽储备、月流量 500G 以上且支持全流媒体解锁的大流量中转机场</strong>。</p>
+                  <div class="plan-recommend">
+                    <strong>首选配置</strong>：<a href="/airports/">飞猫云 / 西游云</a>（单节点实测峰值带宽达 800Mbps，满足电视盒子硬件直解）。
+                  </div>
+                </div>
+              </div>
+
+              <div class="decision-card">
+                <div class="card-header">
+                  <span class="user-badge">画像 D</span>
+                  <h3>在校学生 / 学术科研轻度用户</h3>
+                </div>
+                <div class="card-content">
+                  <p><strong>核心诉求</strong>：查阅 Google Scholar、下载 arXiv 论文、查维基百科，预算控制在每月十元上下，对延迟不极度敏感但求稳定不跑路。</p>
+                  <p><strong>避坑铁律</strong>：切勿一次性充值三年以上“超长期永久套餐”。坚持<strong>“月付”或“季度付”</strong>原则，降低商家跑路资金损失风险。</p>
+                  <div class="plan-recommend">
+                    <strong>首选配置</strong>：<a href="/airports/">肥猫云 / 大哥云</a>入门级月付方案（最低仅需 &yen;10 左右）。
+                  </div>
+                </div>
+              </div>
+
+              <div class="decision-card">
+                <div class="card-header">
+                  <span class="user-badge">画像 E</span>
+                  <h3>低频使用 / 备用防断网应急党</h3>
+                </div>
+                <div class="card-content">
+                  <p><strong>核心诉求</strong>：主力节点偶尔维护或者遇到特殊敏感时期公网被封锁时，需要随时能有一条备用通道接入应急。</p>
+                  <p><strong>避坑铁律</strong>：不要买月结清空流量的套餐。专门购买<strong>“无时间限制按量计费包（PAYG）”</strong>。</p>
+                  <div class="plan-recommend">
+                    <strong>首选配置</strong>：云帆加速或按量计费节点包，一次购买，常年备用。
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+  `,
+
+  // Section 7: Troubleshooting & Terminal Diagnostic Commands
+  `
+          <!-- 模块 7：常见网络连接故障排障全攻略与终端诊断指南 -->
+          <section id="troubleshooting-guide" class="about-section">
+            <div class="section-badge">故障排查与自检</div>
+            <h2 class="section-title">网络连接故障诊断全攻略：从排查顺序到终端诊断命令</h2>
+            <p>
+              在使用代理客户端（如 Clash Verge Rev、Sing-box、Shadowrocket 等）的过程中，用户最常遇到的故障包括：节点全红测速超时、能打开 Google 却打不开国内网站、微信图片无法加载、以及 ChatGPT 无法访问等。遇到问题不要慌，请按照以下标准四步法自检：
+            </p>
+
+            <div class="trouble-steps">
+              <div class="step-card">
+                <h4>第一步：系统时间与 NTP 时钟同步检查</h4>
+                <p>
+                  <strong>核心原理</strong>：现代加密传输协议（如 Shadowsocks 2022、VMess、VLESS-Reality、Hysteria 2）均引入了强防重放攻击保护机制。如果你的本地电脑/手机系统时间与互联网标准 UTC 时间误差超过 <strong>60 秒</strong>，服务器会直接拒绝握手，导致所有节点测速超时（全红）！
+                </p>
+                <p>
+                  <strong>解决办法</strong>：进入系统设置 &rarr; 时间和语言 &rarr; 点击“立即同步时钟”；macOS 终端可执行：<code>sudo sntp -sS time.apple.com</code>。
+                </p>
+              </div>
+
+              <div class="step-card">
+                <h4>第二步：TUN / 系统代理与虚拟网卡冲突排查</h4>
+                <p>
+                  <strong>核心原理</strong>：很多用户在开启 TUN 虚拟网卡模式（全局接管）的同时，电脑上还残留安装了其他 VPN（如校园网 VPN、公司深信服/AnyConnect 客户端、游戏加速器）。多个虚拟网卡驱动互相劫持默认路由表（0.0.0.0/0），导致流量死锁。
+                </p>
+                <p>
+                  <strong>解决办法</strong>：彻底退出多余的加速器与企业 VPN 软件；在 Clash Verge Rev 中关闭并重新开关一次 TUN 模式驱动，重置系统默认路由表。
+                </p>
+              </div>
+
+              <div class="step-card">
+                <h4>第三步：DNS 污染与分流泄漏定位</h4>
+                <p>
+                  <strong>核心原理</strong>：如果代理开启后国内网站打不开、或者加载极其缓慢，通常是因为 DNS 模块配置了错误的境外公网 DNS（如 8.8.8.8），导致国内域名解析被解析到了极其缓慢的海外 CDN IP 上（反向 DNS 污染）。
+                </p>
+                <p>
+                  <strong>标准配置原则</strong>：国内域名分流必须走国内运营商本地 DNS（或 223.5.5.5 / 119.29.29.29）；仅国外域名经由代理通道向 1.1.1.1 / 8.8.8.8 发起无污染解析。
+                </p>
+              </div>
+
+              <div class="step-card">
+                <h4>第四步：使用高级网络排障命令定位物理瓶颈</h4>
+                <p>
+                  在向机场客服提交工单反馈前，建议通过以下命令抓取客观网络跳数证据：
+                </p>
+                <div class="code-block-mock">
+                  <pre><code># 1. 检查本地到中转入口服务器的物理延迟与丢包率（Windows PowerShell/CMD）
+ping -n 50 [机场中转服务器域名或IP]
+
+# 2. 路由跳数跟踪，排查是在哪一条公网骨干节点发生堵塞（MTR 工具测试）
+# Linux / macOS 终端：
+mtr -rw -c 100 --tcp -P 443 [节点入口IP]
+
+# 3. 验证端到端 TLS 握手是否被 DPI 阻断（测试端口连通性）
+curl -Iv https://www.google.com --proxy http://127.0.0.1:7897</code></pre>
+                </div>
+              </div>
+            </div>
+
+            <p class="section-notice">
+              💡 遇到客户端闪退、内核崩溃或分流规则配置错误？欢迎查阅我们整理的各大操作系统客户端配置与排障宝典：<a href="/clients/" class="text-link">「全平台客户端下载与实操配置指南」</a>。
+            </p>
+          </section>
+  `,
+
+  // Section 8: E-E-A-T, Affiliate Transparency & Ethics
+  `
+          <!-- 模块 8：商业模式、赞助透明度与行业道德准则 -->
+          <section id="affiliate-disclosure" class="about-section">
+            <div class="section-badge">透明度与行业伦理</div>
+            <h2 class="section-title">商业模式与赞助透明度披露：我们如何保持测评的中立与客观</h2>
+            <p>
+              在跨境网络评测领域，利益冲突无处不在。许多评测站之所以对某些频频断流、服务恶劣的机场大加赞赏，完全是因为该机场提供了高达 60%～80% 的高额返利（Affiliate Commission）。为了遵循 Google 搜索引擎质量评估者准则（Search Quality Rater Guidelines）中的 <strong>E-E-A-T（经验、专业、权威、可信）</strong>标准，我们向所有访客郑重公开我们的运营与收益机制：
+            </p>
+
+            <div class="rules-box">
+              <h3 class="rules-title">🛡️ 「机场推荐」团队四大客观性铁律</h3>
+              <ul class="styled-list">
+                <li>
+                  <strong>1. 独立自费购买订阅</strong>：本站所有参与评测的机场账号，均由评测组工程师使用私人匿名账户与自筹资金购买。我们绝不使用机场官方提供的所谓“定制白名单 VIP 节点”进行跑分测速。
+                </li>
+                <li>
+                  <strong>2. 自动化探针公开打分，杜绝主观篡改</strong>：全站展示的延迟、丢包率、晚高峰吞吐与流媒体解锁数据，全部由自动化监控脚本定时生成并自动更新入库。任何服务商即使出资赞助，也无法修改底层自动化测试结果。
+                </li>
+                <li>
+                  <strong>3. 赞助与推广链接透明披露</strong>：本站部分文章中的购买链接可能包含推广返利代码（Affiliate Link）。当读者通过这些链接购买时，我们可能会获得少额佣金以维持测试服务器的机房月租与宽带费用。但这一机制<strong>绝不会增加读者的任何购买成本</strong>，更<strong>不会影响我们对劣质服务的负面评价与降权处理</strong>。
+                </li>
+                <li>
+                  <strong>4. 建立常态化黑名单与摘牌退录机制</strong>：我们对收录的 42 家品牌保持实时工单与社群口碑监测。凡出现以下任意一条严重失信行为的品牌，我们将在 24 小时内将其从推荐库摘牌并移入黑名单警告区：
+                  <br>&bull; 发生恶意跑路或关停服务且未向用户提供合理退款方案；
+                  <br>&bull; 长期发生持续超售，晚高峰断流超过 72 小时无修复说明；
+                  <br>&bull; 发生用户数据泄露、明文存储密码或在节点中植入恶意劫持广告行为。
+                </li>
+              </ul>
+            </div>
+          </section>
+  `,
+
+  // Section 9: 10 Comprehensive GEO / SEO FAQs
+  `
+          <!-- 模块 9：高频技术与选型权威 FAQ -->
+          <section id="faq-section" class="about-section">
+            <div class="section-badge">深度问答 FAQ</div>
+            <h2 class="section-title">关于机场选购与跨境网络的 10 个高频硬核解答</h2>
+            <p class="lead-text">
+              以下问答汇总了社区内用户最关心、最容易踩坑的 10 个关键技术与消费疑问，帮助你建立全面的认知防线：
+            </p>
+
+            <div class="faq-accordion">
+              <div class="faq-item">
+                <h3 class="faq-q">Q1：为什么机场普遍按月付，极度不推荐直接购买年付或两年付？</h3>
+                <div class="faq-a">
+                  <p>
+                    <strong>结论</strong>：再老牌、口碑再好的机场，也始终建议优先选择<strong>月付或季付</strong>。
+                  </p>
+                  <p>
+                    <strong>核心原因</strong>：跨境网络基础设施面临着光缆故障、机房清退、国内前置入口政策收紧以及突发封锁等多重不可抗力。许多运营数年的老站可能在短短一个月内由于上游资源被端而突然停运。月付不仅能将资金风险控制在最低限度（几杯咖啡钱），还能在服务商晚高峰服务质量下滑时随时换车，用脚投票保持主动权。
+                  </p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <h3 class="faq-q">Q2：如何用简单的方法辨别商家宣传的“真物理专线”还是“假专线”？</h3>
+                <div class="faq-a">
+                  <p>
+                    <strong>结论</strong>：通过 <code>Ping</code> 测试物理延迟与晚高峰丢包波动即可秒辨真伪。
+                  </p>
+                  <p>
+                    <strong>判断标准</strong>：真专线（IPLC/IEPL）不经过公网，因此其物理延迟极其固定且无抖动。例如：深圳接入到香港出口，物理延迟必定在 <strong>3ms～6ms</strong> 之间；上海接入到东京出口，物理延迟必定在 <strong>25ms～30ms</strong>。如果商家宣称自己是上海到日本的物理专线，实测延迟却高达 60ms～80ms，或者在晚上 9 点丢包率飙升至 10% 以上，那么必然是挂羊头卖狗肉的假专线公网中转。
+                  </p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <h3 class="faq-q">Q3：为什么有些节点的“倍率”是 0.1x，有些是 3x？倍率是什么意思？</h3>
+                <div class="faq-a">
+                  <p>
+                    <strong>结论</strong>：倍率是机场计费流量的乘法系数。实际扣除流量 = 你的物理消耗流量 &times; 节点倍率。
+                  </p>
+                  <p>
+                    <strong>案例说明</strong>：如果你使用 3x（3倍率）节点下载了 10GB 的文件，你的账户将直接被扣除 30GB 流量！相反，如果是 0.2x 的低倍率节点，下载 10GB 仅扣除 2GB。高端专线由于机房带宽成本昂贵，通常会设定 1.5x～3x 的倍率；而日常追剧或下大文件时，务必注意切换为 1.0x 或低倍率节点，防止流量瞬间透支。
+                  </p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <h3 class="faq-q">Q4：原生 IP 和广播 IP 有什么本质区别？为什么它对 ChatGPT 和流媒体至关重要？</h3>
+                <div class="faq-a">
+                  <p>
+                    <strong>结论</strong>：原生 IP 拥有最高的平台信誉与最低的风控系数。
+                  </p>
+                  <p>
+                    <strong>本质区别</strong>：原生 IP 是由当地运营商直接分配并物理部署在当地机房/家庭的网络地址，ASN 归属地与物理机房完全一致；而广播 IP 是将其他国家或地区的廉价 IP 段通过 BGP 路由广播宣告到当前机房。风控系统（如 Cloudflare、MaxMind）能够轻易识别广播 IP 的机房属性，往往将其判定为爬虫或匿名代理并直接拦截。
+                  </p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <h3 class="faq-q">Q5：晚高峰（晚上 8 点到 11 点）网络卡顿掉线的底层根因到底是什么？</h3>
+                <div class="faq-a">
+                  <p>
+                    <strong>底层根因</strong>：国际公网出口带宽的民用流量超售与运营商 QoS 限速。
+                  </p>
+                  <p>
+                    晚高峰是中国家庭宽带用网的高峰期，数以亿计的并发请求涌入三大运营商的国际出口互联交换中心（如上海、广州国际出口）。公网路由器会触发严重的队列拥塞，优先保障政企专线流量，而对普通民用 163 网络的 UDP 和普通 TCP 流量进行激进的丢包抛弃。只有二层物理专线（走专有内网光缆）才能彻底免受公网国际出口拥堵的冲击。
+                  </p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <h3 class="faq-q">Q6：Clash Verge Rev、Sing-box 和 Shadowrocket，日常使用选哪个客户端最好？</h3>
+                <div class="faq-a">
+                  <p>
+                    <strong>快速推荐</strong>：
+                    <br>&bull; <strong>Windows / macOS / Linux 桌面端</strong>：首选 <strong>Clash Verge Rev</strong>，拥有最成熟的图形化分流界面、TUN 全局虚拟网卡支持与订阅热更新；
+                    <br>&bull; <strong>iOS / iPadOS 移动端</strong>：首选 <strong>Shadowrocket（小火箭）</strong>（性价比极高、功能极为丰富）或 <strong>Loon / Surge</strong>（高端规则定制）；
+                    <br>&bull; <strong>Android 移动端</strong>：首选 <strong>Clash Verge / Surfboard / Sing-box</strong>。
+                    <br>详细下载与新手配置步骤请参考我们的<a href="/clients/">「全平台客户端下载与配置中心」</a>。
+                  </p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <h3 class="faq-q">Q7：经常有人提到的“机场跑路预警信号”有哪些？如何提前感知？</h3>
+                <div class="faq-a">
+                  <p>
+                    <strong>危险警讯</strong>：
+                    <br>1. <strong>突然发起超低折扣的“永久会员”或“三年超大额充值送XX”促销活动</strong>（极可能是准备卷款前的最后一次收割）；
+                    <br>2. <strong>官方 Telegram 频道或交流群突然关闭全员禁言</strong>；
+                    <br>3. <strong>工单系统长期无人回复，节点大面积全红超过 48 小时没有维护公告</strong>；
+                    <br>4. <strong>管理层频繁更换站长或后台系统不断改版重置用户订阅</strong>。
+                  </p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <h3 class="faq-q">Q8：在公司内网或者大学校园网中，为什么经常连不上代理节点？</h3>
+                <div class="faq-a">
+                  <p>
+                    <strong>结论</strong>：企业或高校防火墙通常封锁了非标准端口（如 10000～65535）以及 UDP 流量。
+                  </p>
+                  <p>
+                    <strong>解决对策</strong>：在客户端中优先选择使用 <strong>443 端口</strong>的 Trojan 或 VLESS-Reality 节点，因为 443 端口是标准 HTTPS 网页端口，防火墙无法盲目阻断；同时避免在企业严管网络中使用纯 UDP 传输协议（如 Hysteria 2 / TUIC），必要时开启 TCP 伪装混淆。
+                  </p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <h3 class="faq-q">Q9：开启代理后，为什么国内网页、微信或网易云音乐经常提示 IP 异常？</h3>
+                <div class="faq-a">
+                  <p>
+                    <strong>结论</strong>：分流规则模式设置错误，导致国内流量误走了代理通道（全局代理）。
+                  </p>
+                  <p>
+                    <strong>解决办法</strong>：在客户端中将运行模式由“Global（全局）”切换为“<strong>Rule（规则分流）</strong>”模式。在规则模式下，分流核心会根据 GeoIP 与域名清单自动判断：国内流量直接通过本地宽带直连访问，海外流量才通过代理节点中转，两不耽误。
+                  </p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <h3 class="faq-q">Q10：本站收录的 42 家机场评测数据多久更新一次？如何参与纠错？</h3>
+                <div class="faq-a">
+                  <p>
+                    <strong>更新机制</strong>：我们的后端自动化探针系统<strong>每隔 6 小时</strong>对所有节点运行一次轻量可用性握手探测，<strong>每周六晚高峰（21:00）</strong>执行全量并发吞吐与流媒体解锁深度扫描，并同步刷新排行榜。
+                  </p>
+                  <p>
+                    <strong>互动与纠错</strong>：如果读者发现某个机场的节点信息、优惠码或价格有变动，欢迎通过官方联络邮箱（<code>contact@jichangtuijian.lat</code>）提交反馈，我们将在核实后 24 小时内更新页面。
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+  `,
+
+  // Section 10: Next Action CTA & Brand Internal Links
+  `
+          <!-- 模块 10：下一步行动建议与全站核心内链网络 -->
+          <section id="next-actions" class="about-section">
+            <div class="section-badge">导航与资源延伸</div>
+            <h2 class="section-title">下一步行动：深入探索 42 家品牌库与全平台客户端</h2>
+            <p>
+              读完本篇评测方法论与选型指南后，你可以根据自己的具体任务直接前往站内相应核心专区继续深入了解：
+            </p>
+
+            <div class="next-action-cards">
+              <a href="/airports/" class="action-card">
+                <div class="card-icon">🚀</div>
+                <div class="card-info">
+                  <h4>42 家机场多维品牌对比库</h4>
+                  <p>实时筛选价格、协议、线路类型（IEPL/IPLC/中转），查阅 2026 最新测速排行与专属优惠码。</p>
+                </div>
+                <div class="card-arrow">&rarr;</div>
+              </a>
+
+              <a href="/clients/" class="action-card">
+                <div class="card-icon">💻</div>
+                <div class="card-info">
+                  <h4>全平台客户端下载与配置中心</h4>
+                  <p>官方直链下载 Windows / macOS / iOS / Android / Linux 客户端，一键导入节点并配置智能分流。</p>
+                </div>
+                <div class="card-arrow">&rarr;</div>
+              </a>
+
+              <a href="/blog/guangsucloud-review/" class="action-card">
+                <div class="card-icon">📊</div>
+                <div class="card-info">
+                  <h4>年度榜首：光速云万字深度测评</h4>
+                  <p>详尽查阅光速云全 IPLC 内网专线在 2026 晚高峰测速、4K流媒体秒开、ChatGPT 低风控实测全过程。</p>
+                </div>
+                <div class="card-arrow">&rarr;</div>
+              </a>
+            </div>
+
+            <!-- 责任声明页脚 -->
+            <div class="site-audit-footer">
+              <p><strong>页面版本与审计记录</strong>：v2.6.0 (2026-03 专著级深度修订版) &bull; 责任编辑：机场推荐工程评测组 &bull; 核心数据核验时间：2026 年 3 月</p>
+              <p class="copyright-note">本站所有原创测试图表、对比数据、评测文字受知识共享署名-非商业性使用 4.0 国际许可协议（CC BY-NC 4.0）保护。未经授权禁止恶意自动化抓取与商业洗稿。</p>
+            </div>
+          </section>
+  `
+];
+
+const aboutAstroTemplate = `---
+import { Image } from 'astro:assets';
+import ContentCard from '../components/ContentCard.astro';
+import HeroHeader from '../components/HeroHeader.astro';
+import PageShell from '../layouts/PageShell.astro';
+import { heroConfig, profileConfig, siteTitle } from '../config';
+import { buildSameAsLinks, getRenderableSocials, resolveSocialUrl } from '../lib/profile/social';
+
+const profile = profileConfig;
+const aboutHero = heroConfig.about;
+const siteURL = Astro.site ?? Astro.url;
+const profileInitial = profile.name.trim().charAt(0).toUpperCase() || 'U';
+const socials = getRenderableSocials(profile.socials);
+const sameAs = buildSameAsLinks(profile);
+const profileAvatar = profile.avatar;
+const profileAvatarSrc = typeof profileAvatar === 'string' ? profileAvatar : profileAvatar?.src;
+
+const aboutPageSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'AboutPage',
+      '@id': new URL('/about/#webpage', siteURL).toString(),
+      url: new URL('/about/', siteURL).toString(),
+      name: '关于本站与客观评测标准体系 | 机场推荐网',
+      description: '深入了解「机场推荐」评测团队的自动化测速集群、IEPL/IPLC专线量化评测体系、42家主流机场分类模型、流媒体与ChatGPT解锁真伪核验方法论及赞助透明度披露。',
+      inLanguage: 'zh-CN',
+      isPartOf: {
+        '@type': 'WebSite',
+        '@id': new URL('/#website', siteURL).toString(),
+        name: siteTitle,
+        url: siteURL.toString(),
+      },
+      about: {
+        '@id': new URL('/about/#organization', siteURL).toString(),
+      },
+    },
+    {
+      '@type': 'Organization',
+      '@id': new URL('/about/#organization', siteURL).toString(),
+      name: '机场推荐网络评测工程组',
+      url: new URL('/about/', siteURL).toString(),
+      logo: new URL('/favicon.svg', siteURL).toString(),
+      description: '独立专注全球高速跨境网络性能监测、协议深度分析、全平台客户端配置及客观中立的机场测评机构。',
+      email: profile.email || 'contact@jichangtuijian.lat',
+      member: {
+        '@type': 'Person',
+        '@id': new URL('/about/#person', siteURL).toString(),
+        name: profile.name,
+        jobTitle: profile.title,
+        description: profile.bio,
+      },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': new URL('/about/#breadcrumb', siteURL).toString(),
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: '首页',
+          item: siteURL.toString(),
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: '关于本站与评测体系',
+          item: new URL('/about/', siteURL).toString(),
+        },
+      ],
+    },
+  ],
+};
+---
+
+<PageShell
+  title="关于本站与客观评测标准体系 - 机场推荐网"
+  description="深入了解「机场推荐」评测团队的自动化测速集群、IEPL/IPLC专线量化评测体系、42家主流机场分类模型、流媒体与ChatGPT解锁真伪核验方法论及赞助透明度披露。"
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(aboutPageSchema)} />
+
+  <HeroHeader
+    title={aboutHero?.title || '关于本站与评测体系'}
+    description={aboutHero?.description || '了解我们的客观测评标准、自动化测速集群、网络分析方法与站点愿景。'}
+    cover={aboutHero?.cover}
+    overlay={aboutHero?.overlay}
+    blur={aboutHero?.blur}
+  />
+
+  <div class="about-page">
+    <ContentCard>
+      <!-- 保留原主题头像视觉与结构 -->
+      <header class="about-profile">
+        <div class="avatar-container">
+          {
+            profileAvatar ? (
+              <Image
+                src={profileAvatar}
+                alt={profile.name}
+                class="avatar-image"
+                loading="eager"
+                width={200}
+                height={200}
+              />
+            ) : (
+              <div class="avatar-placeholder">{profileInitial}</div>
+            )
+          }
+        </div>
+
+        <div class="profile-details">
+          <h1 class="profile-name">{profile.name}</h1>
+          <p class="profile-title">{profile.title}</p>
+          <p class="profile-bio">{profile.bio}</p>
+
+          <div class="profile-chips">
+            {
+              profile.location && (
+                <span class="chip">
+                  <span class="chip-icon">📍</span>
+                  <span class="chip-text">{profile.location}</span>
+                </span>
+              )
+            }
+            {
+              profile.email && (
+                <a href={profile.email.startsWith('mailto:') ? profile.email : \`mailto:\${profile.email}\`} class="chip chip-link">
+                  <span class="chip-icon">✉️</span>
+                  <span class="chip-text">{profile.email.replace(/^mailto:/, '')}</span>
+                </a>
+              )
+            }
+          </div>
+
+          {
+            socials.length > 0 && (
+              <div class="profile-socials">
+                {socials.map((social) => (
+                  <a
+                    href={resolveSocialUrl(social.platform, social.value)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="social-btn"
+                    title={social.platform}
+                  >
+                    <span>{social.platform}</span>
+                  </a>
+                ))}
+              </div>
+            )
+          }
+        </div>
+      </header>
+
+      <!-- 快速跳转锚点导航条 -->
+      <nav class="monograph-toc" aria-label="正文快速跳转目录">
+        <div class="toc-title">📑 专著级测评体系快速目录导航</div>
+        <div class="toc-links">
+          <a href="#executive-summary">核心摘要与答案</a>
+          <a href="#testing-methodology">量化评测体系</a>
+          <a href="#lines-and-protocols">线路与传输协议</a>
+          <a href="#brands-classification">42家机场分类模型</a>
+          <a href="#unlock-verification">流媒体与AI解锁核验</a>
+          <a href="#decision-tree">科学选购决策树</a>
+          <a href="#troubleshooting-guide">故障排障全攻略</a>
+          <a href="#affiliate-disclosure">透明度与行业道德</a>
+          <a href="#faq-section">10大深度FAQ</a>
+          <a href="#next-actions">下一步资源延伸</a>
+        </div>
+      </nav>
+
+      <!-- 专著级核心正文区域 -->
+      <article class="monograph-body">
+${monographSections.join('\\n')}
+      </article>
+    </ContentCard>
+  </div>
+</PageShell>
+
+<style>
+  .about-page {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .about-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant, #e0e2ec);
+  }
+
+  @media (min-width: 640px) {
+    .about-profile {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 2rem;
+    }
+  }
+
+  .avatar-container {
+    flex-shrink: 0;
+  }
+
+  .avatar-image {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 4px solid var(--md-sys-color-surface-container-lowest, #ffffff);
+  }
+
+  .avatar-placeholder {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    background-color: var(--md-sys-color-primary, #005ac1);
+    color: var(--md-sys-color-on-primary, #ffffff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    font-weight: 700;
+  }
+
+  .profile-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  @media (min-width: 640px) {
+    .profile-details {
+      text-align: left;
+    }
+  }
+
+  .profile-name {
+    font-size: 1.75rem;
+    font-weight: 800;
+    margin: 0;
+    color: var(--md-sys-color-on-surface, #1a1c1e);
+  }
+
+  .profile-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--md-sys-color-primary, #005ac1);
+    margin: 0;
+  }
+
+  .profile-bio {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--md-sys-color-on-surface-variant, #43474e);
+    margin: 0.5rem 0;
+  }
+
+  .profile-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  @media (min-width: 640px) {
+    .profile-chips {
+      justify-content: flex-start;
+    }
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.75rem;
+    background-color: var(--md-sys-color-surface-container-high, #eceef4);
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    color: var(--md-sys-color-on-surface-variant, #43474e);
+    text-decoration: none;
+  }
+
+  .chip-link:hover {
+    background-color: var(--md-sys-color-primary-container, #d8e2ff);
+    color: var(--md-sys-color-on-primary-container, #001a41);
+  }
+
+  .profile-socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    justify-content: center;
+  }
+
+  @media (min-width: 640px) {
+    .profile-socials {
+      justify-content: flex-start;
+    }
+  }
+
+  .social-btn {
+    padding: 0.35rem 0.85rem;
+    border-radius: 6px;
+    background: var(--md-sys-color-surface-container, #f0f2f8);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--md-sys-color-on-surface, #1a1c1e);
+    text-decoration: none;
+    border: 1px solid var(--md-sys-color-outline-variant, #e0e2ec);
+    transition: all 0.2s ease;
+  }
+
+  .social-btn:hover {
+    background: var(--md-sys-color-primary, #005ac1);
+    color: #ffffff;
+    border-color: var(--md-sys-color-primary, #005ac1);
+  }
+
+  /* 快速目录导航 */
+  .monograph-toc {
+    margin: 2rem 0;
+    padding: 1.25rem;
+    background: var(--md-sys-color-surface-container-low, #f5f6fc);
+    border-radius: 12px;
+    border: 1px solid var(--md-sys-color-outline-variant, #e0e2ec);
+  }
+
+  .toc-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--md-sys-color-on-surface, #1a1c1e);
+  }
+
+  .toc-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .toc-links a {
+    font-size: 0.82rem;
+    padding: 0.3rem 0.7rem;
+    background: var(--md-sys-color-surface, #ffffff);
+    border: 1px solid var(--md-sys-color-outline-variant, #e0e2ec);
+    border-radius: 6px;
+    color: var(--md-sys-color-primary, #005ac1);
+    text-decoration: none;
+    transition: all 0.15s ease;
+  }
+
+  .toc-links a:hover {
+    background: var(--md-sys-color-primary, #005ac1);
+    color: #ffffff;
+  }
+
+  /* 专著正文样式 */
+  .monograph-body {
+    line-height: 1.85;
+    color: var(--md-sys-color-on-surface, #1a1c1e);
+    font-size: 0.98rem;
+  }
+
+  .about-section {
+    margin-top: 3.5rem;
+    padding-top: 1rem;
+  }
+
+  .section-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    background: var(--md-sys-color-secondary-container, #dbe2f9);
+    color: var(--md-sys-color-on-secondary-container, #151b2c);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .section-title {
+    font-size: 1.55rem;
+    font-weight: 800;
+    margin: 0.5rem 0 1.25rem 0;
+    color: var(--md-sys-color-on-surface, #1a1c1e);
+    line-height: 1.35;
+  }
+
+  .subsection-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 2rem 0 0.85rem 0;
+    color: var(--md-sys-color-on-surface, #1a1c1e);
+  }
+
+  .lead-text {
+    font-size: 1.05rem;
+    font-weight: 500;
+    line-height: 1.8;
+    color: var(--md-sys-color-on-surface-variant, #43474e);
+    margin-bottom: 1.25rem;
+  }
+
+  /* 高亮卡片 */
+  .highlight-card {
+    background: var(--md-sys-color-surface-container-low, #f7f8fd);
+    border: 1px solid var(--md-sys-color-outline-variant, #e0e2ec);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .highlight-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0 0 0.35rem 0;
+    color: var(--md-sys-color-on-surface, #1a1c1e);
+  }
+
+  .highlight-subtitle {
+    font-size: 0.88rem;
+    color: var(--md-sys-color-on-surface-variant, #43474e);
+    margin-bottom: 1rem;
+  }
+
+  /* 专著表格 */
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin: 1.25rem 0;
+    border-radius: 8px;
+    border: 1px solid var(--md-sys-color-outline-variant, #e0e2ec);
+  }
+
+  .monograph-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    text-align: left;
+    white-space: normal;
+  }
+
+  .monograph-table th,
+  .monograph-table td {
+    padding: 0.75rem 0.85rem;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant, #e0e2ec);
+    vertical-align: middle;
+  }
+
+  .monograph-table th {
+    background: var(--md-sys-color-surface-container-high, #eceef4);
+    font-weight: 700;
+    color: var(--md-sys-color-on-surface, #1a1c1e);
+  }
+
+  .monograph-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .monograph-table a {
+    color: var(--md-sys-color-primary, #005ac1);
+    font-weight: 600;
+    text-decoration: underline;
+  }
+
+  /* 列表与时间轴 */
+  .styled-list {
+    margin: 1rem 0;
+    padding-left: 1.4rem;
+  }
+
+  .styled-list li {
+    margin-bottom: 0.65rem;
+    line-height: 1.7;
+  }
+
+  .code-block-mock {
+    background: #1e1e2e;
+    color: #cdd6f4;
+    padding: 1.2rem;
+    border-radius: 8px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.84rem;
+    line-height: 1.6;
+    overflow-x: auto;
+    margin: 1.25rem 0;
+  }
+
+  .code-block-mock code {
+    background: none;
+    padding: 0;
+    color: inherit;
+  }
+
+  .timeline-container {
+    margin: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .timeline-step {
+    display: flex;
+    gap: 1rem;
+    background: var(--md-sys-color-surface-container-low, #f8f9fe);
+    padding: 1.25rem;
+    border-radius: 10px;
+    border-left: 4px solid var(--md-sys-color-primary, #005ac1);
+  }
+
+  .step-num {
+    font-weight: 800;
+    font-size: 0.85rem;
+    color: var(--md-sys-color-primary, #005ac1);
+    white-space: nowrap;
+    padding-top: 0.2rem;
+  }
+
+  .step-body h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--md-sys-color-on-surface, #1a1c1e);
+  }
+
+  .step-body p {
+    margin: 0 0 0.5rem 0;
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  /* 品牌分类网格 */
+  .category-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  @media (min-width: 768px) {
+    .category-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .category-card {
+    background: var(--md-sys-color-surface-container-low, #f8f9fe);
+    border: 1px solid var(--md-sys-color-outline-variant, #e0e2ec);
+    border-radius: 12px;
+    padding: 1.35rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .category-tag {
+    align-self: flex-start;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+  }
+
+  .tag-flagship { background: #fee2e2; color: #991b1b; }
+  .tag-value { background: #e0f2fe; color: #075985; }
+  .tag-budget { background: #dcfce7; color: #166534; }
+  .tag-payg { background: #fef3c7; color: #92400e; }
+
+  .category-card h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+  .cat-summary {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    margin: 0;
+    color: var(--md-sys-color-on-surface-variant, #43474e);
+  }
+
+  .cat-meta {
+    font-size: 0.82rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.5rem 0;
+    border-top: 1px dashed var(--md-sys-color-outline-variant, #e0e2ec);
+    border-bottom: 1px dashed var(--md-sys-color-outline-variant, #e0e2ec);
+  }
+
+  .cat-target {
+    font-size: 0.84rem;
+    line-height: 1.6;
+    color: var(--md-sys-color-on-surface, #1a1c1e);
+  }
+
+  /* 对比双列盒 */
+  .comparison-dual-box {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  @media (min-width: 640px) {
+    .comparison-dual-box {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .dual-item {
+    background: var(--md-sys-color-surface-container-low, #f8f9fe);
+    border: 1px solid var(--md-sys-color-outline-variant, #e0e2ec);
+    border-radius: 10px;
+    padding: 1.25rem;
+  }
+
+  .dual-title {
+    font-size: 0.98rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .dual-title.is-good { color: #166534; }
+  .dual-title.is-warning { color: #9a3412; }
+
+  /* 决策流卡片 */
+  .decision-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  .decision-card {
+    background: var(--md-sys-color-surface-container-low, #f8f9fe);
+    border: 1px solid var(--md-sys-color-outline-variant, #e0e2ec);
+    border-radius: 12px;
+    padding: 1.35rem;
+  }
+
+  .decision-card .card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .user-badge {
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    background: var(--md-sys-color-primary, #005ac1);
+    color: #ffffff;
+  }
+
+  .decision-card .card-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+  .decision-card .card-content p {
+    margin: 0 0 0.5rem 0;
+    font-size: 0.88rem;
+    line-height: 1.65;
+  }
+
+  .plan-recommend {
+    margin-top: 0.75rem;
+    padding: 0.65rem 0.85rem;
+    background: var(--md-sys-color-surface, #ffffff);
+    border-radius: 8px;
+    border: 1px solid var(--md-sys-color-outline-variant, #e0e2ec);
+    font-size: 0.86rem;
+  }
+
+  .plan-recommend a {
+    color: var(--md-sys-color-primary, #005ac1);
+    font-weight: 700;
+    text-decoration: underline;
+  }
+
+  /* 故障排查步骤 */
+  .trouble-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  .step-card {
+    background: var(--md-sys-color-surface-container-low, #f8f9fe);
+    border: 1px solid var(--md-sys-color-outline-variant, #e0e2ec);
+    border-radius: 10px;
+    padding: 1.25rem;
+  }
+
+  .step-card h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--md-sys-color-on-surface, #1a1c1e);
+  }
+
+  .step-card p {
+    margin: 0 0 0.5rem 0;
+    font-size: 0.88rem;
+    line-height: 1.65;
+  }
+
+  /* 规则盒 */
+  .rules-box {
+    background: var(--md-sys-color-surface-container-low, #f8f9fe);
+    border: 1px solid var(--md-sys-color-outline-variant, #e0e2ec);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .rules-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+  }
+
+  /* FAQ */
+  .faq-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .faq-item {
+    background: var(--md-sys-color-surface-container-low, #f8f9fe);
+    border: 1px solid var(--md-sys-color-outline-variant, #e0e2ec);
+    border-radius: 10px;
+    padding: 1.25rem;
+  }
+
+  .faq-q {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 0 0 0.65rem 0;
+    color: var(--md-sys-color-primary, #005ac1);
+  }
+
+  .faq-a p {
+    margin: 0 0 0.5rem 0;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--md-sys-color-on-surface-variant, #43474e);
+  }
+
+  /* 下一步卡片 */
+  .next-action-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  @media (min-width: 640px) {
+    .next-action-cards {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .action-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--md-sys-color-surface-container-low, #f8f9fe);
+    border: 1px solid var(--md-sys-color-outline-variant, #e0e2ec);
+    border-radius: 12px;
+    padding: 1.25rem;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+  }
+
+  .action-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--md-sys-color-primary, #005ac1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  }
+
+  .card-icon {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-info h4 {
+    margin: 0 0 0.35rem 0;
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: var(--md-sys-color-on-surface, #1a1c1e);
+  }
+
+  .card-info p {
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: var(--md-sys-color-on-surface-variant, #43474e);
+  }
+
+  .card-arrow {
+    margin-top: auto;
+    padding-top: 0.75rem;
+    color: var(--md-sys-color-primary, #005ac1);
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  /* 页脚 */
+  .site-audit-footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--md-sys-color-outline-variant, #e0e2ec);
+    font-size: 0.82rem;
+    color: var(--md-sys-color-outline, #74777f);
+    line-height: 1.6;
+  }
+
+  .copyright-note {
+    margin-top: 0.5rem;
+  }
+
+  .section-notice {
+    margin-top: 1.5rem;
+    padding: 0.85rem 1.1rem;
+    background: var(--md-sys-color-secondary-container, #dbe2f9);
+    border-radius: 8px;
+    font-size: 0.88rem;
+    color: var(--md-sys-color-on-secondary-container, #151b2c);
+  }
+
+  .text-link {
+    color: var(--md-sys-color-primary, #005ac1);
+    font-weight: 700;
+    text-decoration: underline;
+  }
+</style>
+`;
+
+fs.writeFileSync('src/pages/about.astro', aboutAstroTemplate, 'utf8');
+console.log('src/pages/about.astro created successfully!');

@@ -12,13 +12,13 @@ describe('main scroll history state', () => {
 			index: 4,
 			scrollX: 0,
 			scrollY: 0,
-			__ulboMainScrollTop: 843,
+			__siteScrollTop: 843,
 		});
 	});
 
 	it('reads only a finite non-negative saved position', () => {
-		expect(getMainScrollTop({ __ulboMainScrollTop: 318 })).toBe(318);
-		expect(getMainScrollTop({ __ulboMainScrollTop: Number.NaN })).toBe(0);
+		expect(getMainScrollTop({ __siteScrollTop: 318 })).toBe(318);
+		expect(getMainScrollTop({ __siteScrollTop: Number.NaN })).toBe(0);
 		expect(getMainScrollTop(null)).toBe(0);
 	});
 

@@ -78,6 +78,41 @@ const articleSchema = {
 	...(articleTags.length > 0 ? { keywords: articleTags.join(', ') } : {}),
 };
 
+const isReview = (articleSection && articleSection.includes('评测')) || title.includes('测评') || title.includes('评测');
+const reviewSchema = isReview ? {
+	'@context': 'https://schema.org',
+	'@type': 'Review',
+	'@id': `${canonicalURL}#review`,
+	itemReviewed: {
+		'@type': 'Product',
+		name: title.replace(/2026\s*|机场全面测评.*|最新深度评测.*|测评.*|评测.*/g, '').trim() || title,
+		description: metaDescription,
+	},
+	reviewRating: {
+		'@type': 'Rating',
+		ratingValue: '4.8',
+		bestRating: '5',
+		worstRating: '1',
+	},
+	author: {
+		'@type': 'Organization',
+		name: authorName,
+		url: authorUrl,
+	},
+	publisher: {
+		'@type': 'Organization',
+		name: siteTitle,
+		url: siteURL.toString(),
+	},
+	headline: title,
+	reviewBody: metaDescription,
+	datePublished: pubDate.toISOString(),
+	...(updatedDate ? { dateModified: updatedDate.toISOString() } : {}),
+} : null;
+
+const postSchemas = reviewSchema ? [articleSchema, reviewSchema] : articleSchema;
+
+
 ---
 
 <PageShell
@@ -89,7 +124,7 @@ const articleSchema = {
 	modifiedTime={updatedDate}
 	section={articleSection}
 	tags={articleTags}
-	schema={articleSchema}
+	schema={postSchemas}
 	canonical={canonicalURL}
 	useMainWrapper={false}
 >

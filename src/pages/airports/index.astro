@@ -1,0 +1,502 @@
+---
+import PageShell from '../../layouts/PageShell.astro';
+import HeroHeader from '../../components/HeroHeader.astro';
+import ContentCard from '../../components/ContentCard.astro';
+import { brandsList } from '../../data/brands';
+import defaultBackground from '../../assets/blog-placeholder-1.webp';
+
+const title = '42 家高速稳定机场推荐与品牌库 (2026 最新深度测评榜单)';
+const description = '权威收录 2026 年主流 42 家优质网络加速与机场品牌，支持按 IEPL 专线、VLESS/Hysteria2 协议、晚高峰 4K 测速、ChatGPT/流媒体解锁及价格区间快速筛选。';
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: title,
+  description: description,
+  url: 'https://jichangtuijian.lat/airports/',
+  breadcrumb: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: '首页', item: 'https://jichangtuijian.lat/' },
+      { '@type': 'ListItem', position: 2, name: '42家精选机场评测库', item: 'https://jichangtuijian.lat/airports/' },
+    ],
+  },
+};
+---
+
+<PageShell
+  title={title}
+  description={description}
+  schema={webPageSchema}
+  transparentHeader={true}
+  pageId="blog-list"
+>
+  <HeroHeader
+    text="42 家精选机场品牌评测库"
+    subtitle="客观实测晚高峰延迟与带宽，汇聚 42 家主流加速服务全维档案与专属优惠"
+    backgroundImage={defaultBackground.src}
+  />
+
+  <ContentCard>
+    <div class="airports-container">
+      <!-- 搜索与筛选工具栏 -->
+      <div class="filter-toolbar">
+        <div class="search-box">
+          <input
+            type="text"
+            id="brand-search-input"
+            placeholder="搜索机场名称、协议（如 VLESS、IEPL、Shadowsocks）或特性..."
+            aria-label="搜索机场"
+          />
+        </div>
+        <div class="filter-pills" id="filter-pills">
+          <button class="pill active" data-filter="all">全部 (42)</button>
+          <button class="pill" data-filter="featured">主推优选 (Top 10)</button>
+          <button class="pill" data-filter="专线">专线/IEPL (低延迟)</button>
+          <button class="pill" data-filter="VLESS">VLESS 协议</button>
+          <button class="pill" data-filter="Shadowsocks">Shadowsocks</button>
+          <button class="pill" data-filter="低价">高性价比 (¥10以内)</button>
+        </div>
+      </div>
+
+      <!-- 品牌卡片网格 -->
+      <div class="brands-grid" id="brands-grid">
+        {brandsList.map((brand) => (
+          <div
+            class:list={['brand-card', { 'is-top-one': brand.rank === 1, 'is-featured': brand.isFeatured }]}
+            data-name={brand.name.toLowerCase()}
+            data-protocol={brand.protocols.join(' ').toLowerCase()}
+            data-line={brand.lineType.toLowerCase()}
+            data-price={brand.startingPrice}
+            data-rank={brand.rank}
+            data-featured={brand.isFeatured ? 'true' : 'false'}
+          >
+            {brand.rank === 1 && <div class="badge-ribbon">🏆 综合第一主推</div>}
+            {brand.rank > 1 && brand.rank <= 10 && <div class="badge-ribbon tier-top10">Top {brand.rank} 精选</div>}
+
+            <div class="card-header">
+              <div class="rank-num">#{brand.rank}</div>
+              <div class="brand-title-wrap">
+                <h3 class="brand-name">{brand.name}</h3>
+                <span class="brand-en">{brand.enName}</span>
+              </div>
+              <div class="price-tag">{brand.startingPrice}</div>
+            </div>
+
+            <div class="card-tag-row">
+              <span class="spec-tag highlight">{brand.tag}</span>
+              {brand.protocols.map((p) => (
+                <span class="spec-tag">{p}</span>
+              ))}
+            </div>
+
+            <p class="brand-desc">{brand.summary}</p>
+
+            <div class="spec-meta">
+              <div class="meta-item">
+                <span class="meta-label">线路架构</span>
+                <span class="meta-val">{brand.lineType}</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">专属优惠</span>
+                <span class="meta-val coupon-code">{brand.coupon || '暂无'}</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">节点覆盖</span>
+                <span class="meta-val">{brand.nodes}</span>
+              </div>
+            </div>
+
+            <div class="card-actions">
+              <a href={`/blog/${brand.id}-review/`} class="btn-review">
+                深度测评与实测图 &rarr;
+              </a>
+              <a
+                href={brand.affUrl}
+                target="_blank"
+                rel="nofollow sponsored noopener"
+                class="btn-visit"
+              >
+                直达官网 🚀
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- 搜索无结果占位 -->
+      <div id="no-results" class="no-results" style="display: none;">
+        <p>未找到匹配的机场品牌，请尝试更换关键词（例如：光速云、IEPL、VLESS）。</p>
+      </div>
+
+      <!-- 测评合规声明 -->
+      <div class="compliance-box">
+        <h4>📋 客观测评与赞助披露规范</h4>
+        <p>
+          本站所有机场评测均基于真实节点测速数据与第三方公开测试记录。本站部分注册按钮包含专属推荐代码，若您通过链接购买，本站可能会获得推荐支持，该收益全额用于维持自动化测速节点集群开销，且绝不影响您的购买资费。请合理安排用量，优先以月付小额测试自身网络匹配度。
+        </p>
+      </div>
+    </div>
+  </ContentCard>
+</PageShell>
+
+<style>
+  .airports-container {
+    padding: 1.5em 0;
+  }
+
+  .filter-toolbar {
+    margin-bottom: 2em;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2em;
+  }
+
+  .search-box input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.9em 1.4em;
+    font-size: 1.05em;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    color: var(--color-text);
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .search-box input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.15);
+  }
+
+  .filter-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6em;
+  }
+
+  .pill {
+    padding: 0.45em 1em;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text-secondary);
+    font-size: 0.92em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .pill:hover {
+    color: var(--color-text);
+    border-color: var(--color-border-strong);
+  }
+
+  .pill.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+
+  .brands-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.6em;
+  }
+
+  .brand-card {
+    position: relative;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 18px;
+    padding: 1.6em;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    overflow: hidden;
+  }
+
+  .brand-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    border-color: var(--accent);
+  }
+
+  .brand-card.is-top-one {
+    border: 2px solid var(--accent);
+    background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 5%, var(--color-surface)) 0%, var(--color-surface) 100%);
+  }
+
+  .badge-ribbon {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 0.25em 0.75em;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #fff;
+    font-size: 0.76em;
+    font-weight: 700;
+    border-radius: 999px;
+    letter-spacing: 0.04em;
+    box-shadow: 0 2px 6px rgba(217, 119, 6, 0.35);
+  }
+
+  .badge-ribbon.tier-top10 {
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    box-shadow: 0 2px 6px rgba(var(--accent-rgb), 0.35);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7em;
+    margin-bottom: 0.8em;
+  }
+
+  .rank-num {
+    font-size: 1.3em;
+    font-weight: 800;
+    color: var(--accent);
+    font-family: monospace;
+  }
+
+  .brand-title-wrap {
+    flex: 1;
+  }
+
+  .brand-name {
+    margin: 0;
+    font-size: 1.28em;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .brand-en {
+    font-size: 0.82em;
+    color: var(--color-text-muted);
+  }
+
+  .price-tag {
+    font-size: 1.05em;
+    font-weight: 700;
+    color: #e11d48;
+  }
+
+  .card-tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45em;
+    margin-bottom: 0.9em;
+  }
+
+  .spec-tag {
+    font-size: 0.78em;
+    padding: 0.18em 0.55em;
+    border-radius: 6px;
+    background: var(--color-bg);
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-border-subtle);
+  }
+
+  .spec-tag.highlight {
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    color: var(--accent);
+    border-color: color-mix(in srgb, var(--accent) 25%, transparent);
+    font-weight: 600;
+  }
+
+  .brand-desc {
+    font-size: 0.92em;
+    line-height: 1.55;
+    color: var(--color-text-secondary);
+    margin: 0 0 1.2em 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .spec-meta {
+    margin-top: auto;
+    padding: 0.85em;
+    background: var(--color-bg);
+    border-radius: 10px;
+    font-size: 0.85em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45em;
+    margin-bottom: 1.2em;
+  }
+
+  .meta-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+  }
+
+  .meta-label {
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+  }
+
+  .meta-val {
+    color: var(--color-text);
+    text-align: right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .meta-val.coupon-code {
+    font-family: monospace;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .card-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75em;
+  }
+
+  .btn-review,
+  .btn-visit {
+    padding: 0.7em 0.5em;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 0.88em;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .btn-review {
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+  }
+
+  .btn-review:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .btn-visit {
+    background: var(--accent);
+    color: #fff;
+    border: 1px solid var(--accent);
+    box-shadow: 0 2px 8px rgba(var(--accent-rgb), 0.3);
+  }
+
+  .btn-visit:hover {
+    background: var(--accent-dark);
+    border-color: var(--accent-dark);
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 3em 1em;
+    color: var(--color-text-muted);
+  }
+
+  .compliance-box {
+    margin-top: 3.5em;
+    padding: 1.8em;
+    background: var(--color-surface);
+    border-radius: 14px;
+    border: 1px solid var(--color-border);
+  }
+
+  .compliance-box h4 {
+    margin-top: 0;
+    margin-bottom: 0.6em;
+    font-size: 1.1em;
+  }
+
+  .compliance-box p {
+    margin: 0;
+    font-size: 0.88em;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+  }
+
+  @media (max-width: 640px) {
+    .brands-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  function setupBrandFilter() {
+    const searchInput = document.getElementById('brand-search-input') as HTMLInputElement | null;
+    const filterPills = document.querySelectorAll('#filter-pills .pill');
+    const cards = document.querySelectorAll<HTMLElement>('.brand-card');
+    const noResults = document.getElementById('no-results');
+
+    let currentFilter = 'all';
+    let searchQuery = '';
+
+    function applyFilter() {
+      let visibleCount = 0;
+      cards.forEach((card) => {
+        const name = card.dataset.name || '';
+        const protocol = card.dataset.protocol || '';
+        const line = card.dataset.line || '';
+        const price = card.dataset.price || '';
+        const isFeatured = card.dataset.featured === 'true';
+
+        // Check search match
+        const matchesSearch =
+          !searchQuery ||
+          name.includes(searchQuery) ||
+          protocol.includes(searchQuery) ||
+          line.includes(searchQuery) ||
+          price.includes(searchQuery);
+
+        // Check pill filter
+        let matchesPill = true;
+        if (currentFilter === 'featured') {
+          matchesPill = isFeatured;
+        } else if (currentFilter === '专线') {
+          matchesPill = line.includes('专线') || line.includes('iepl') || line.includes('iplc');
+        } else if (currentFilter === 'VLESS') {
+          matchesPill = protocol.includes('vless');
+        } else if (currentFilter === 'Shadowsocks') {
+          matchesPill = protocol.includes('shadowsocks') || protocol.includes('ss');
+        } else if (currentFilter === '低价') {
+          matchesPill = price.includes('5.') || price.includes('6') || price.includes('7') || price.includes('8');
+        }
+
+        if (matchesSearch && matchesPill) {
+          card.style.display = 'flex';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (noResults) {
+        noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+      }
+    }
+
+    searchInput?.addEventListener('input', (e) => {
+      searchQuery = (e.target as HTMLInputElement).value.trim().toLowerCase();
+      applyFilter();
+    });
+
+    filterPills.forEach((pill) => {
+      pill.addEventListener('click', () => {
+        filterPills.forEach((p) => p.classList.remove('active'));
+        pill.classList.add('active');
+        currentFilter = pill.getAttribute('data-filter') || 'all';
+        applyFilter();
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', setupBrandFilter);
+</script>
